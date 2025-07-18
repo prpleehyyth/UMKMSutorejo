@@ -17,7 +17,9 @@ class Umkm extends Model
         'address',
         'google_maps_link',
         'is_verified',
-        'user_id'
+        'user_id',
+        'logo',
+        'description'
     ];
 
 
