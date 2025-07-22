@@ -11,7 +11,6 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -25,7 +24,6 @@
                         {{ __('Aspirasi') }}
                     </x-nav-link>
                 </div>
-
             </div>
 
             <!-- Settings Dropdown -->
@@ -80,18 +78,14 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-        </div>
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+            <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
                 {{ __('Produk') }}
-            </x-nav-link>
-        </div>
+            </x-responsive-nav-link>
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('aspirations.index')" :active="request()->routeIs('aspirations.*')">
+            <x-responsive-nav-link :href="route('aspirations.index')" :active="request()->routeIs('aspirations.*')">
                 {{ __('Aspirasi') }}
-            </x-nav-link>
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
