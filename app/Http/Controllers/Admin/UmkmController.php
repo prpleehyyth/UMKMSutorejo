@@ -18,6 +18,22 @@ class UmkmController extends Controller
         return view('admin.umkm.index', compact('umkms'));
     }
 
+    public function unverified()
+    {
+        $umkms = Umkm::where('is_verified', false)->get();
+        return view('admin.unverified', compact('umkms'));
+    }
+
+    public function verify($id)
+    {
+        $umkm = Umkm::findOrFail($id);
+        $umkm->is_verified = true;
+        $umkm->save();
+
+        return redirect()->back()->with('success', 'UMKM berhasil diverifikasi.');
+    }
+
+
     public function show($id)
     {
         $umkm = \App\Models\Umkm::with('user')->findOrFail($id);

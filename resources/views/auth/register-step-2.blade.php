@@ -1,4 +1,14 @@
 <x-guest-layout>
+    @if ($errors->any())
+    <div class="mb-4 text-red-600">
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="w-full max-w-md mx-auto mt-10 p-6 bg-white shadow rounded-xl">
         <h2 class="text-xl font-semibold text-center mb-6">Langkah 2: Data UMKM</h2>
 
@@ -16,6 +26,13 @@
                 <x-text-input id="nib" name="nib" type="text" class="block w-full mt-1" value="{{ old('nib') }}" />
                 <x-input-error :messages="$errors->get('nib')" class="mt-2" />
             </div>
+
+            <div class="mb-4">
+                <x-input-label for="address" value="Alamat Usaha" />
+                <textarea id="address" name="address" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" required>{{ old('address') }}</textarea>
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            </div>
+
 
             <div class="mb-4">
                 <x-input-label for="business_type_id" value="Jenis Usaha" />
@@ -43,24 +60,10 @@
                 <x-input-error :messages="$errors->get('halal_certified')" class="mt-2" />
             </div>
 
-
-
             <div class="mb-4">
-                <x-input-label for="address" value="Alamat Lengkap Usaha" />
-                <textarea id="address" name="address" rows="3" class="block w-full mt-1 rounded-md border-gray-300 shadow-sm">{{ old('address') }}</textarea>
-                <x-input-error :messages="$errors->get('address')" class="mt-2" />
-            </div>
-
-            <div class="mb-4">
-                <x-input-label for="latitude" value="Latitude (Opsional)" />
-                <x-text-input id="latitude" name="latitude" type="text" class="block w-full mt-1" value="{{ old('latitude') }}" />
-                <x-input-error :messages="$errors->get('latitude')" class="mt-2" />
-            </div>
-
-            <div class="mb-6">
-                <x-input-label for="longitude" value="Longitude (Opsional)" />
-                <x-text-input id="longitude" name="longitude" type="text" class="block w-full mt-1" value="{{ old('longitude') }}" />
-                <x-input-error :messages="$errors->get('longitude')" class="mt-2" />
+                <x-input-label for="google_maps_link" value="Link Google Maps (Opsional)" />
+                <x-text-input id="google_maps_link" name="google_maps_link" type="text" class="block w-full mt-1" value="{{ old('google_maps_link') }}" placeholder="https://goo.gl/maps/xyz123" />
+                <x-input-error :messages="$errors->get('google_maps_link')" class="mt-2" />
             </div>
 
             <div>

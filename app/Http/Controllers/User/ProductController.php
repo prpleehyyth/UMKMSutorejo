@@ -11,7 +11,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::where('umkm_id', Auth::user()->umkm->id)->latest()->get();
+        $products = Product::where('umkm_id', Auth::user()->umkm->id)
+            ->latest()
+            ->paginate(12); // Ganti get() dengan paginate()
+
         return view('user.products.index', compact('products'));
     }
 

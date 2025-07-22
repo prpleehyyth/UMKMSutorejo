@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\BusinessType;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class RegisterStepController extends Controller
 {
@@ -54,8 +56,7 @@ class RegisterStepController extends Controller
             'revenue' => 'nullable|string',
             'halal_certified' => 'nullable|string|max:50',
             'address' => 'required|string',
-            'latitude' => 'numeric',
-            'longitude' => 'numeric',
+            'google_maps_link' => 'nullable|string|url',
         ]);
 
         DB::transaction(function () use ($step1, $data) {
@@ -75,16 +76,16 @@ class RegisterStepController extends Controller
                 'revenue' => $data['revenue'],
                 'halal_certified' => $data['halal_certified'],
                 'address' => $data['address'],
-                'latitude' => $data['latitude'],
-                'longitude' => $data['longitude'],
+                'google_maps_link' => $data['google_maps_link'],
                 'is_verified' => false,
             ]);
 
             Auth::login($user);
+            $user->sendEmailVerificationNotification(); // ← Ini harus setelah login
         });
 
         session()->forget('register.step1');
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login untuk melanjutkan.');
+        return redirect()->route('verification.notice');
     }
 }

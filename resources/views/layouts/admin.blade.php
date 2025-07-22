@@ -42,31 +42,30 @@
                 </div>
 
                 <div class="px-4 space-y-2">
+                    {{-- Tab Data UMKM --}}
                     <a href="{{ route('admin.umkm.index') }}"
                         class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors
-                        {{ request()->routeIs('admin.umkm.*') ? 'bg-blue-600 text-white' : 'text-blue-200 hover:bg-blue-700 hover:text-white' }}">
-                        <i class="fas fa-database"></i>
+   {{ request()->routeIs('admin.umkm.index') ? 'bg-blue-600 text-white' : 'text-blue-200 hover:bg-blue-700 hover:text-white' }}">
+                        <i class="fas fa-briefcase"></i>
                         <span>Data UMKM</span>
                     </a>
 
-                    <a href="{{ Route::has('admin.verification') ? route('admin.verification') : '#' }}"
+                    {{-- Tab Verifikasi Data --}}
+                    <a href="{{ route('admin.umkm.unverified') }}"
                         class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors
-                        {{ Route::has('admin.verification') && request()->routeIs('admin.verification*') ? 'bg-blue-600 text-white' : 'text-blue-200 hover:bg-blue-700 hover:text-white' }}
-                        {{ !Route::has('admin.verification') ? 'opacity-50 cursor-not-allowed' : '' }}">
+   {{ request()->routeIs('admin.umkm.unverified') ? 'bg-blue-600 text-white' : 'text-blue-200 hover:bg-blue-700 hover:text-white' }}">
                         <i class="fas fa-check-circle"></i>
                         <span>Verifikasi Data</span>
-                        @if(!Route::has('admin.verification'))
-                        <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded ml-auto">Soon</span>
-                        @endif
                     </a>
 
-                    <a href="{{ Route::has('admin.aspirations') ? route('admin.aspirations') : '#' }}"
+
+                    <a href="{{ Route::has('admin.aspirations.index') ? route('admin.aspirations.index') : '#' }}"
                         class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors
-                        {{ Route::has('admin.aspirations') && request()->routeIs('admin.aspirations*') ? 'bg-blue-600 text-white' : 'text-blue-200 hover:bg-blue-700 hover:text-white' }}
-                        {{ !Route::has('admin.aspirations') ? 'opacity-50 cursor-not-allowed' : '' }}">
+                        {{ Route::has('admin.aspirations.index') && request()->routeIs('admin.aspirations*') ? 'bg-blue-600 text-white' : 'text-blue-200 hover:bg-blue-700 hover:text-white' }}
+                        {{ !Route::has('admin.aspirations.index') ? 'opacity-50 cursor-not-allowed' : '' }}">
                         <i class="fas fa-heart"></i>
                         <span>Aspirasi</span>
-                        @if(!Route::has('admin.aspirations'))
+                        @if(!Route::has('admin.aspirations.index'))
                         <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded ml-auto">Soon</span>
                         @endif
                     </a>
