@@ -17,16 +17,27 @@ class AspirationController extends Controller
 
     public function create()
     {
+        $umkm = Auth::user()->umkm;
+
+        if (!$umkm || !$umkm->is_verified) {
+            return redirect()->route('aspirations.index')->with('error', 'UMKM Anda belum diverifikasi. Tidak dapat mengirim aspirasi.');
+        }
+
         return view('user.aspirations.create');
     }
 
+
     public function store(Request $request)
     {
+        $umkm = Auth::user()->umkm;
+
+        if (!$umkm || !$umkm->is_verified) {
+            return redirect()->route('aspirations.index')->with('error', 'UMKM Anda belum diverifikasi.');
+        }
+
         $request->validate([
             'message' => 'required|string',
         ]);
-
-        $umkm = Auth::user()->umkm;
 
         $umkm->aspirations()->create([
             'message' => $request->message,
@@ -34,6 +45,7 @@ class AspirationController extends Controller
 
         return redirect()->route('aspirations.index')->with('success', 'Aspirasi berhasil dikirim.');
     }
+
 
     public function show($id)
     {

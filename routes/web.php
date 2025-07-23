@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/umkm/edit', [UserUmkmController::class, 'edit'])->name('user.umkm.edit');
     Route::put('/umkm/update', [UserUmkmController::class, 'update'])->name('user.umkm.update');
+    Route::get('/umkm/{id}', [UserUmkmController::class, 'show'])->name('user.umkm.show');
+
 
     Route::resource('products', \App\Http\Controllers\User\ProductController::class);
     Route::resource('aspirations', \App\Http\Controllers\User\AspirationController::class)

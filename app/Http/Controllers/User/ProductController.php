@@ -20,11 +20,24 @@ class ProductController extends Controller
 
     public function create()
     {
+        $umkm = Auth::user()->umkm;
+
+        if (!$umkm || !$umkm->is_verified) {
+            return redirect()->route('products.index')->with('error', 'UMKM Anda belum diverifikasi. Tidak dapat menambah produk.');
+        }
+
         return view('user.products.create');
     }
 
+
     public function store(Request $request)
     {
+        $umkm = Auth::user()->umkm;
+
+        if (!$umkm || !$umkm->is_verified) {
+            return redirect()->route('products.index')->with('error', 'UMKM Anda belum diverifikasi.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -37,12 +50,13 @@ class ProductController extends Controller
             $validated['image_url'] = $path;
         }
 
-        $validated['umkm_id'] = Auth::user()->umkm->id;
+        $validated['umkm_id'] = $umkm->id;
 
         Product::create($validated);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
+
 
     public function show(Product $product)
     {

@@ -20,6 +20,13 @@ class UmkmController extends Controller
         return view('user.umkm.edit', compact('umkm', 'businessTypes'));
     }
 
+    public function show($id)
+    {
+        $umkm = Umkm::with('user', 'businessType')->findOrFail($id);
+        return view('user.umkm.show', compact('umkm'));
+    }
+
+
     public function update(Request $request)
     {
         $request->validate([
