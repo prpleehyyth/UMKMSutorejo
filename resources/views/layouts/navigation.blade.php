@@ -16,11 +16,11 @@
         </div>
     </div>
 
-    <!-- Active Dashboard Item -->
+    <!-- Dashboard Item - Fixed Active State -->
     <div class="flex-shrink-0 px-4 py-3">
         <a href="{{ route('dashboard') }}"
-            class="flex items-center px-4 py-3 bg-blue-500 rounded-lg text-white font-medium transition-all duration-200 hover:bg-blue-400 {{ request()->routeIs('dashboard') ? 'bg-blue-500' : '' }}">
-            <i class="fas fa-th-large mr-3 text-lg"></i>
+            class="flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-200 group {{ request()->routeIs('dashboard') ? 'bg-blue-500 text-white' : 'text-blue-100 hover:bg-blue-600/50 hover:text-white' }}">
+            <i class="fas fa-th-large mr-3 text-lg group-hover:scale-110 transition-transform duration-200"></i>
             <span>Dashboard</span>
         </a>
     </div>
@@ -35,13 +35,13 @@
         <!-- Menu Items -->
         <div class="space-y-1">
             <a href="{{ route('products.index') }}"
-                class="flex items-center px-4 py-3 text-blue-100 rounded-lg hover:bg-blue-600/50 hover:text-white transition-all duration-200 group {{ request()->routeIs('products.*') ? 'bg-blue-500 text-white' : '' }}">
+                class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('products.*') ? 'bg-blue-500 text-white' : 'text-blue-100 hover:bg-blue-600/50 hover:text-white' }}">
                 <i class="fas fa-box mr-3 text-lg group-hover:scale-110 transition-transform duration-200"></i>
                 <span class="font-medium">Data Produk</span>
             </a>
 
             <a href="{{ route('aspirations.index') }}"
-                class="flex items-center px-4 py-3 text-blue-100 rounded-lg hover:bg-blue-600/50 hover:text-white transition-all duration-200 group {{ request()->routeIs('aspirations.*') ? 'bg-blue-500 text-white' : '' }}">
+                class="flex items-center px-4 py-3 rounded-lg transition-all duration-200 group {{ request()->routeIs('aspirations.*') ? 'bg-blue-500 text-white' : 'text-blue-100 hover:bg-blue-600/50 hover:text-white' }}">
                 <i class="fas fa-comment mr-3 text-lg group-hover:scale-110 transition-transform duration-200"></i>
                 <span class="font-medium">Aspirasi</span>
             </a>
@@ -72,7 +72,7 @@
         <!-- Action Buttons -->
         <div class="space-y-2">
             <a href="{{ route('profile.edit') }}"
-                class="flex items-center w-full px-3 py-2 text-sm text-blue-100 rounded-lg hover:bg-blue-600/50 hover:text-white transition-all duration-200 group">
+                class="flex items-center w-full px-3 py-2 text-sm rounded-lg transition-all duration-200 group {{ request()->routeIs('profile.*') ? 'bg-blue-500 text-white' : 'text-blue-100 hover:bg-blue-600/50 hover:text-white' }}">
                 <i class="fas fa-user-edit mr-3 w-4 text-center group-hover:scale-110 transition-transform duration-200"></i>
                 <span>{{ __('Profile') }}</span>
             </a>

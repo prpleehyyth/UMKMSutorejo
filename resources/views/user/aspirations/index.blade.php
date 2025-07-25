@@ -71,7 +71,15 @@
                         <div class="mb-4">
                             <h3 class="text-sm font-medium text-gray-700 mb-2">Aspirasi:</h3>
                             <div class="bg-gray-50 rounded-lg p-4">
-                                <p class="text-gray-800 leading-relaxed">{{ $aspiration->message }}</p>
+                                <p class="text-gray-800 leading-relaxed mb-2">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($aspiration->message), 150, '...') }}
+                                </p>
+
+                                <a href="{{ route('aspirations.show', $aspiration->id) }}"
+                                    class="inline-block text-sm text-blue-600 hover:underline">
+                                    Lihat Selengkapnya
+                                </a>
+
                             </div>
                         </div>
 
