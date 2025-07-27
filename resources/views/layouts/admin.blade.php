@@ -70,16 +70,16 @@
                         @endif
                     </a>
 
-                    <a href="{{ route('logout') }}"
+                    <a href="{{ route('admin.logout') }}"
                         class="flex items-center space-x-3 px-4 py-3 text-blue-200 hover:bg-red-600 hover:text-white rounded-lg transition-colors"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Keluar</span>
+                        Keluar
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="hidden">
                         @csrf
                     </form>
+
                 </div>
             </nav>
         </div>

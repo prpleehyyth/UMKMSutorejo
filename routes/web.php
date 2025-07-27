@@ -10,10 +10,30 @@ use App\Http\Controllers\Admin\AspirationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Guest\UmkmController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+Route::get('/', [UmkmController::class, 'landing'])->name('guest.landing');
+
+
+
+Route::prefix('umkm')->name('guest.umkm.')->group(function () {
+    Route::get('/', [UmkmController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [UmkmController::class, 'show'])->name('show');
+});
+
+use App\Http\Controllers\Guest\ProductController;
+
+Route::get('/produk/{id}', [ProductController::class, 'show'])->name('guest.products.show');
+
+
+
+
 
 // Register 2 Langkah
 Route::get('/register-step-1', [RegisterStepController::class, 'showStep1'])->name('register.step1');

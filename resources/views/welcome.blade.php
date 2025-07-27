@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
+
 
 <head>
     <meta charset="UTF-8">
@@ -48,9 +49,14 @@
                     </div>
                     <div class="flex items-center space-x-6">
                         <a href="#" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
-                        <a href="#" class="text-gray-700 hover:text-primary font-medium">Produk</a>
-                        <button class="bg-gray-800 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-700 transition">Masuk</button>
-                        <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Daftar</button>
+                        <a href="#UMKM" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
+                        <a href="{{ route('login') }}">
+                            <button class="bg-gray-800 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-700 transition">Masuk</button>
+                        </a>
+                        <a href="{{ route('register.step1') }}">
+                            <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Daftar</button>
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -72,7 +78,9 @@
                         Temukan beragam produk lokal berkualitas dari para pelaku UMKM di Kelurahan Dukuh Sutorejo. Dari makanan tradisional, minuman hingga kerajinan tangan semuanya tersedia dalam satu platform.
                     </p>
                     <button class="bg-secondary text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-400 transition transform hover:scale-105">
-                        Jelajahi Produk
+                        <a href="{{ route('guest.umkm.index') }}">
+                            Jelajahi UMKM
+                        </a>
                     </button>
                 </div>
 
@@ -160,19 +168,22 @@
                     </p>
                 </div>
                 <button class="bg-secondary text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-400 transition transform hover:scale-105">
-                    Daftar Sekarang
+                    <a href="{{ route('register.step1') }}">
+                        Daftar Sekarang
+                    </a>
                 </button>
+
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section class="bg-gradient-to-r from-primary via-blue-600 to-darkBlue py-20">
+    <section id="UMKM" class="bg-gradient-to-r from-primary via-blue-600 to-darkBlue py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="text-center mb-12">
                 <p class="text-blue-200 text-lg mb-2">Jelajahi dan Temukan</p>
-                <h2 class="text-3xl lg:text-4xl font-bold text-white">Produk Unggulan</h2>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">UMKM Unggulan</h2>
             </div>
 
             <!-- Filter Tabs -->
@@ -184,151 +195,40 @@
                 </div>
             </div>
 
-            <!-- Products Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <!-- Product Cards -->
+                @foreach($umkms as $umkm)
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
                     <div class="aspect-square bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">📱</span>
+                            @if ($umkm->logo)
+                            <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}" class="w-24 h-24 rounded-full object-cover shadow-lg">
+                            @else
+                            <span class="text-white text-5xl">{{ $umkm->icon ?? '🏪' }}</span>
+                            @endif
                         </div>
                         <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
 
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-green-400 to-green-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">🍔</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
                     <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
+                        <h3 class="font-bold text-gray-900 text-lg mb-2">{{ $umkm->name }}</h3>
+                        <p class="text-gray-600 mb-4">{{ Str::limit($umkm->description, 80) }}</p>
+                        <a href="{{ route('guest.umkm.show', $umkm->id) }}" class="w-full block bg-yellow-300 text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105 text-center">
                             Detail
-                        </button>
+                        </a>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-purple-400 to-purple-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">🎨</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-red-400 to-red-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">☕</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-orange-400 to-orange-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">🧵</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-teal-400 to-teal-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">🥘</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-pink-400 to-pink-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">🍰</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow group">
-                    <div class="aspect-square bg-gradient-to-br from-indigo-400 to-indigo-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-white text-5xl">🎭</span>
-                        </div>
-                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-bold text-gray-900 text-lg mb-2">Nama UMKM</h3>
-                        <p class="text-gray-600 mb-4">Deskripsi</p>
-                        <button class="w-full bg-secondary text-gray-900 py-3 rounded-xl font-semibold hover:bg-yellow-400 transition transform hover:scale-105">
-                            Detail
-                        </button>
-                    </div>
-                </div>
+                @endforeach
             </div>
+
 
             <!-- View More -->
             <div class="text-center">
-                <button class="text-white hover:text-secondary underline text-lg font-medium transition">
+                <a href="{{ route('guest.umkm.index') }}" class="text-white hover:text-secondary underline text-lg font-medium transition">
                     Lihat Selengkapnya...
-                </button>
+                </a>
+
+
             </div>
         </div>
     </section>
