@@ -73,8 +73,20 @@
                     <a href="{{ route('admin.logout') }}"
                         class="flex items-center space-x-3 px-4 py-3 text-blue-200 hover:bg-red-600 hover:text-white rounded-lg transition-colors"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Keluar
+
+                        <!-- Logout Icon (Heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m-6 7h13" />
+                        </svg>
+
+                        <span>Keluar</span>
                     </a>
+
 
                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="hidden">
                         @csrf
