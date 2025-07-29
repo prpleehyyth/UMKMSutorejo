@@ -23,7 +23,7 @@
                 <x-input-label for="email" :value="__('Email')" class="text-gray-800 font-medium" />
                 <x-text-input
                     id="email"
-                    class="mt-1 w-full rounded-md border border-blue-500 text-blue-900 placeholder-blue-400 bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+                    class="block w-full mt-1 rounded-md border border-blue-500 bg-blue-50 text-blue-900 placeholder-blue-400 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                     type="email"
                     name="email"
                     :value="old('email')"
@@ -37,7 +37,7 @@
                 <x-input-label for="password" :value="__('Password')" class="text-gray-800 font-medium" />
                 <x-text-input
                     id="password"
-                    class="mt-1 w-full rounded-md border border-blue-500 text-blue-900 placeholder-blue-400 bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+                    class="block w-full mt-1 rounded-md border border-blue-500 bg-blue-50 text-blue-900 placeholder-blue-400 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                     type="password"
                     name="password"
                     required
