@@ -7,6 +7,8 @@ cd UMKMSutorejo
 2. Install PHP & JS Dependencies
 composer install
 npm install
+php artisan key:generate
+php artisan storage:link
 
 3. Atur koneksi database di .env
 
