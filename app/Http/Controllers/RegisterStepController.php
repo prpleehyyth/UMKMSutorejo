@@ -47,6 +47,12 @@ class RegisterStepController extends Controller
 
     public function processStep2(Request $request)
     {
+        if (!session()->has('register.step1')) {
+            return redirect()->route('register.step1')->withErrors([
+                'session' => 'Sesi Anda telah kadaluarsa. Silakan isi ulang Langkah 1.',
+            ]);
+        }
+
         $step1 = session('register.step1');
 
         $data = $request->validate([
