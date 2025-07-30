@@ -266,105 +266,69 @@
                     </button>
 
                     @foreach ($categories as $category)
-                        <button onclick="filterProducts('{{ Str::slug($category->name) }}', this)"
-                            class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
-                            <span class="flex items-center space-x-2">
-                                {{-- Dynamic icons based on category name --}}
-                                @if (Str::contains(strtolower($category->name), 'makanan'))
-                                    <i class="fas fa-utensils"></i>
-                                @elseif(Str::contains(strtolower($category->name), 'minuman'))
-                                    <i class="fas fa-glass-water"></i>
-                                @else
-                                    <i class="fas fa-tag"></i> {{-- Default icon --}}
-                                @endif
-                                <span>{{ $category->name }}</span>
-                            </span>
-                        </button>
+                    <button onclick="filterProducts('{{ Str::slug($category->name) }}', this)"
+                        class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
+                        <span class="flex items-center space-x-2">
+                            {{-- Dynamic icons based on category name --}}
+                            @if (Str::contains(strtolower($category->name), 'makanan'))
+                            <i class="fas fa-utensils"></i>
+                            @elseif(Str::contains(strtolower($category->name), 'minuman'))
+                            <i class="fas fa-glass-water"></i>
+                            @else
+                            <i class="fas fa-tag"></i> {{-- Default icon --}}
+                            @endif
+                            <span>{{ $category->name }}</span>
+                        </span>
+                    </button>
                     @endforeach
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 @forelse ($umkms as $umkm)
-                    <div data-kategori="{{ Str::slug($umkm->businessType->name) }}"
-                        class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
+                <div data-kategori="{{ Str::slug($umkm->businessType->name) }}"
+                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
 
-                        <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
 
-                            <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}"
-                                class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i
-                                    class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                            </div>
-                            <div class="absolute top-3 right-3">
-                                <span
-                                    class="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-yellow-400">{{ $umkm->businessType->name }}</span>
-                            </div>
+                        <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}"
+                            class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i
+                                class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
                         </div>
-
-                        <div class="p-5">
-                            <h3 class="font-bold text-gray-900 text-lg mb-2 line-clamp-1">
-                                {{ $umkm->name }}
-                            </h3>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                                {{ $umkm->description ?? 'Deskripsi singkat UMKM.' }}
-                            </p>
-
-                            <a href="{{ route('guest.umkm.show', $umkm->id) }}"
-                                class="block w-full text-center bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-3 rounded-lg font-semibold text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                                <span class="flex items-center justify-center space-x-2">
-                                    <i class="fas fa-eye text-xs"></i>
-                                    <span>Lihat Detail</span>
-                                    <i
-                                        class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                                </span>
-                            </a>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-yellow-400">{{ $umkm->businessType->name }}</span>
                         </div>
                     </div>
 
-                    <div data-kategori="{{ Str::slug($umkm->businessType->name) }}"
-                        class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
+                    <div class="p-5">
+                        <h3 class="font-bold text-gray-900 text-lg mb-2 line-clamp-1">
+                            {{ $umkm->name }}
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+                            {{ $umkm->description ?? 'Deskripsi singkat UMKM.' }}
+                        </p>
 
-                        <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-
-                            <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}"
-                                class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                            <div class="absolute inset-0 flex items-center justify-center">
+                        <a href="{{ route('guest.umkm.show', $umkm->id) }}"
+                            class="block w-full text-center bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-3 rounded-lg font-semibold text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
+                            <span class="flex items-center justify-center space-x-2">
+                                <i class="fas fa-eye text-xs"></i>
+                                <span>Lihat Detail</span>
                                 <i
-                                    class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                            </div>
-                            <div class="absolute top-3 right-3">
-                                <span
-                                    class="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-yellow-400">{{ $umkm->businessType->name }}</span>
-                            </div>
-                        </div>
-
-                        <div class="p-5">
-                            <h3 class="font-bold text-gray-900 text-lg mb-2 line-clamp-1">
-                                {{ $umkm->name }}
-                            </h3>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                                {{ $umkm->description ?? 'Deskripsi singkat UMKM.' }}
-                            </p>
-
-                            <a href="{{ route('guest.umkm.show', $umkm->id) }}"
-                                class="block w-full text-center bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-3 rounded-lg font-semibold text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                                <span class="flex items-center justify-center space-x-2">
-                                    <i class="fas fa-eye text-xs"></i>
-                                    <span>Lihat Detail</span>
-                                    <i
-                                        class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                                </span>
-                            </a>
-                        </div>
+                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
+                            </span>
+                        </a>
                     </div>
+                </div>
+
+
                 @empty
-                    <div class="col-span-full text-center py-12">
-                        <p class="text-white text-lg">Belum ada UMKM yang ditampilkan.</p>
-                    </div>
+                <div class="col-span-full text-center py-12">
+                    <p class="text-white text-lg">Belum ada UMKM yang ditampilkan.</p>
+                </div>
                 @endforelse
             </div>
 
@@ -430,7 +394,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('images/lppm 1.png') }}" alt="LPPM Logo"                                    class="w-16 h-16 object-contain" />
+                                <img src="{{ asset('images/lppm 1.png') }}" alt="LPPM Logo" class="w-16 h-16 object-contain" />
                             </div>
                             <div>
                                 <h4 class="text-sm font-bold text-gray-800 leading-tight">LPPM</h4>
@@ -463,7 +427,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('images/logo kkn fix.png') }}" alt="Partner Logo"                                    class="w-16 h-16 object-contain" />
+                                <img src="{{ asset('images/logo kkn fix.png') }}" alt="Partner Logo" class="w-16 h-16 object-contain" />
                             </div>
                             <div>
                                 <h4 class="text-sm font-bold text-gray-800 leading-tight">Kelompok</h4>
