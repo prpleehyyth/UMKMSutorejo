@@ -6,15 +6,16 @@
     <title>Daftar UMKM - Marketplace Lokal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4F46E5',
-                        secondary: '#FCD34D',
-                        darkBlue: '#1E40AF'
-                    }
+                        primary: '#1E40AF', // Solid blue/indigo
+                        secondary: '#FCD34D', // Solid yellow
+
+                    },
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-in-out',
                         'slide-up': 'slideUp 0.6s ease-out',
@@ -54,14 +55,16 @@
     </script>
     <style>
         .filter-btn.active {
-            background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%) !important;
+            background-color: #FCD34D !important;
+            /* Secondary Color */
             color: #1F2937 !important;
             border-color: rgba(245, 158, 11, 0.3) !important;
             box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3) !important;
         }
 
         .filter-btn.active:hover {
-            background: linear-gradient(135deg, #FDE047 0%, #EAB308 100%) !important;
+            background-color: #F59E0B !important;
+            /* Darker Yellow */
             transform: translateY(-2px);
             box-shadow: 0 12px 30px rgba(245, 158, 11, 0.4) !important;
         }
@@ -99,16 +102,13 @@
     </style>
 </head>
 
-<!-- Header -->
-
-<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
+<body class="bg-slate-50 min-h-screen">
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
 
-                <!-- Logo -->
                 <div class="flex items-center space-x-3">
-                    <div class="bg-primary text-white p-2 rounded-lg">
+                    <div class="text-white p-2 rounded-lg">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo"
                             class="w-12 h-12 sm:w-16 sm:h-16 object-contain">
                     </div>
@@ -118,12 +118,10 @@
                     </div>
                 </div>
 
-                <!-- Search and Navigation -->
                 <div class="flex items-center space-x-6">
-
                     <div class="flex items-center space-x-6">
-                        <a href="#" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
-                        <a href="#" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
+                        <a href="{{ url('/')}}" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
+                        <a href="#umkm" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
                         <a href="{{ route('login') }}">
                             <button
                                 class="bg-gray-800 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-700 transition">Masuk</button>
@@ -132,20 +130,17 @@
                             <button
                                 class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Daftar</button>
                         </a>
-
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section dengan Statistik -->
     <div class="bg-gray-50 py-16">
         <div class="max-w-6xl mx-auto px-4">
-            <!-- Hero Text -->
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    Temukan UMKM <span class="text-blue-600">Terbaik</span>
+                    Temukan UMKM <span class="text-primary">Terbaik</span>
                 </h1>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">
                     Dukung ekonomi lokal dengan berbelanja dari UMKM pilihan yang menawarkan produk berkualitas dan
@@ -153,15 +148,12 @@
                 </p>
             </div>
 
-            <!-- Search and Filter Section -->
-            <div
-                class="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 rounded-2xl shadow-xl p-8 text-white mb-8">
+            <div class="bg-primary rounded-2xl shadow-xl p-8 text-white mb-8">
                 <div class="text-center mb-6">
                     <h2 class="text-lg font-medium mb-2">Jelajahi dan Temukan</h2>
                     <h3 class="text-2xl md:text-3xl font-bold">UMKM Unggulan</h3>
                 </div>
 
-                <!-- Search Bar -->
                 <div class="max-w-2xl mx-auto relative mb-6">
                     <input type="text" placeholder="Cari UMKM berdasarkan nama atau produk..."
                         class="w-full px-6 py-4 pl-14 bg-white/95 backdrop-blur-sm border-0 rounded-full text-gray-800 placeholder-gray-500 focus:ring-2 focus:ring-white/50 focus:outline-none transition-all shadow-lg"
@@ -173,9 +165,7 @@
                     </svg>
                 </div>
 
-                <!-- Filter Buttons -->
                 <div class="flex flex-wrap justify-center gap-3">
-                    <!-- Button Semua -->
                     <button
                         class="filter-btn px-6 py-3 rounded-full font-medium text-sm transition-all duration-200 flex items-center space-x-2 shadow-md bg-white/20 text-white hover:bg-white/30 border border-white/30"
                         data-category="" id="filter-all">
@@ -187,133 +177,113 @@
                         <span>Semua</span>
                     </button>
 
-                    <!-- Dynamic Category Buttons -->
                     @foreach ($categories as $category)
-                        <button
-                            class="filter-btn px-6 py-3 rounded-full font-medium text-sm transition-all duration-200 flex items-center space-x-2 shadow-md bg-white/20 text-white hover:bg-white/30 border border-white/30"
-                            data-category="{{ strtolower($category->slug ?? Str::slug($category->name)) }}"
-                            id="filter-{{ strtolower($category->slug ?? Str::slug($category->name)) }}">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            <span>{{ $category->name }}</span>
-                        </button>
+                    <button
+                        class="filter-btn px-6 py-3 rounded-full font-medium text-sm transition-all duration-200 flex items-center space-x-2 shadow-md bg-white/20 text-white hover:bg-white/30 border border-white/30"
+                        data-category="{{ strtolower($category->slug ?? Str::slug($category->name)) }}"
+                        id="filter-{{ strtolower($category->slug ?? Str::slug($category->name)) }}">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>{{ $category->name }}</span>
+                    </button>
                     @endforeach
                 </div>
             </div>
 
-            <!-- Statistik Section -->
             <div class="flex justify-center mb-12">
                 <div class="grid grid-cols-2 gap-6">
-
-                    <!-- UMKM Terdaftar -->
                     <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">
+                        <div class="text-3xl md:text-4xl font-bold text-blue-500 mb-2">
                             {{ $totalUmkm ?? '7' }}
                         </div>
-                        <div class="text-blue-300 text-sm md:text-base">UMKM Terdaftar</div>
+                        <div class="text-blue-400 text-sm md:text-base">UMKM Terdaftar</div>
                     </div>
-
-                    <!-- Kategori Produk -->
                     <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-2">
+                        <div class="text-3xl md:text-4xl font-bold text-primary mb-2">
                             {{ $totalCategories ?? '2' }}
                         </div>
-                        <div class="text-purple-300 text-sm md:text-base">Kategori Produk</div>
+                        <div class="text-indigo-400 text-sm md:text-base">Kategori Produk</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- UMKM Grid Section -->
-    <section class="pb-16">
+    <section id=umkm class="pb-16">
         <div class="max-w-7xl mx-auto px-4">
             <div id="umkmGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($umkms as $umkm)
-                    <!-- Design 1: Card dengan Header Gradient (mirip referensi gambar) -->
-                    <div class="umkm-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                        data-category="{{ strtolower($umkm->businessType->name ?? 'lainnya') }}">
+                <div class="umkm-card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    data-category="{{ strtolower($umkm->businessType->name ?? 'lainnya') }}">
 
-                        <!-- Header dengan gradient background -->
-                        <div class="h-32 bg-gradient-to-br from-blue-500 to-purple-600 relative">
-                            <div class="absolute inset-0 bg-black bg-opacity-10"></div>
-
-                            <!-- Icon atau Logo placeholder -->
-                            <div class="absolute bottom-4 left-6">
-                                <div
-                                    class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path>
-                                        <path fill-rule="evenodd"
-                                            d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                            </div>
-
-                            <!-- Category badge di pojok kanan atas -->
-                            <div class="absolute top-4 right-4">
-                                <span
-                                    class="bg-white bg-opacity-20 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm border border-white border-opacity-30">
-                                    {{ $umkm->businessType->name ?? 'Lainnya' }}
-                                </span>
+                    <div class="h-32 bg-primary relative">
+                        <div class="absolute bottom-4 left-6">
+                            <div
+                                class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm overflow-hidden">
+                                <img src="{{ asset('storage/' . $umkm->logo) }}" alt="Logo UMKM"
+                                    class="w-full h-full object-cover">
                             </div>
                         </div>
-
-                        <!-- Content -->
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $umkm->name }}</h3>
-                            <p class="text-sm text-gray-600 mb-3 leading-relaxed">
-                                {{ Str::limit($umkm->description, 100) }}</p>
-                            <div class="flex items-center text-xs text-gray-500 mb-4">
-                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                {{ $umkm->address }}
-                            </div>
-
-                            <a href="{{ route('guest.umkm.show', $umkm->id) }}"
-                                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2.5 px-4 rounded-lg text-center text-sm font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-200 flex items-center justify-center group">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                    </path>
-                                </svg>
-                                Lihat Detail
-                                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
+                        <div class="absolute top-4 right-4">
+                            <span
+                                class="bg-white bg-opacity-20 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm border border-white border-opacity-30">
+                                {{ $umkm->businessType->name ?? 'Lainnya' }}
+                            </span>
                         </div>
                     </div>
+
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $umkm->name }}</h3>
+                        <p class="text-sm text-gray-600 mb-3 leading-relaxed">
+                            {{ Str::limit($umkm->description, 100) }}
+                        </p>
+                        <div class="flex items-center text-xs text-gray-500 mb-4">
+                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            {{ $umkm->address }}
+                        </div>
+
+                        <a href="{{ route('guest.umkm.show', $umkm->id) }}"
+                            class="w-full bg-primary text-white py-2.5 px-4 rounded-lg text-center text-sm font-medium hover:bg-darkBlue transition-all duration-200 flex items-center justify-center group">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                </path>
+                            </svg>
+                            Lihat Detail
+                            <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
                 @endforeach
+            </div>
 
-                <!-- Empty State (show when no results) -->
-                <div id="emptyState" class="col-span-full text-center py-16 hidden">
-                    <div class="max-w-md mx-auto">
-                        <div class="text-6xl mb-4">🔍</div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Tidak ada UMKM ditemukan</h3>
-                        <p class="text-gray-600 mb-6">Coba ubah kata kunci pencarian atau filter kategori</p>
-                        <button id="resetSearch"
-                            class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                            Reset Pencarian
-                        </button>
-                    </div>
+            <div id="emptyState" class="col-span-full text-center py-16 hidden">
+                <div class="max-w-md mx-auto">
+                    <div class="text-6xl mb-4">🔍</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Tidak ada UMKM ditemukan</h3>
+                    <p class="text-gray-600 mb-6">Coba ubah kata kunci pencarian atau filter kategori.</p>
+                    <button id="resetSearch"
+                        class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                        Reset Pencarian
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
@@ -406,34 +376,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
             const filterButtons = document.querySelectorAll('.filter-btn');
-            const umkmCards = document.querySelectorAll('.umkm-card');
+            const umkmGrid = document.getElementById('umkmGrid');
+            const umkmCards = umkmGrid.querySelectorAll('.umkm-card');
+            const emptyState = document.getElementById('emptyState');
+            const resetSearchBtn = document.getElementById('resetSearch');
+            const allFilterBtn = document.getElementById('filter-all');
 
             let currentCategory = '';
             let currentSearch = '';
 
-            // Set "Semua" sebagai active secara default
-            document.getElementById('filter-all').classList.add('active');
-
-            // Search functionality
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    currentSearch = this.value.toLowerCase();
-                    filterCards();
-                });
-            }
-
-            // Filter button functionality
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-
-                    currentCategory = this.dataset.category;
-                    filterCards();
-                });
-            });
+            // Set "Semua" as active by default
+            allFilterBtn.classList.add('active');
 
             function filterCards() {
                 let visibleCount = 0;
@@ -441,65 +394,60 @@
                 umkmCards.forEach((card, index) => {
                     const cardCategory = card.dataset.category || '';
                     const cardText = card.textContent.toLowerCase();
-
                     const matchesCategory = currentCategory === '' || cardCategory === currentCategory;
                     const matchesSearch = currentSearch === '' || cardText.includes(currentSearch);
 
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+
                     if (matchesCategory && matchesSearch) {
                         card.classList.remove('hidden');
-                        card.style.display = 'block';
-                        // Staggered animation
                         setTimeout(() => {
+                            card.style.display = 'block';
                             card.style.opacity = '1';
                             card.style.transform = 'scale(1)';
-                        }, index * 100);
+                        }, index * 50);
                         visibleCount++;
                     } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.95)';
                         setTimeout(() => {
                             card.classList.add('hidden');
+                            card.style.display = 'none';
                         }, 200);
                     }
                 });
 
-                // Update hasil pencarian (opsional)
-                console.log(`Menampilkan ${visibleCount} UMKM`);
-
-                // Tampilkan pesan jika tidak ada hasil
-                showNoResultsMessage(visibleCount === 0);
-            }
-
-            function showNoResultsMessage(show) {
-                let noResultsDiv = document.getElementById('no-results-message');
-
-                if (show && !noResultsDiv) {
-                    // Buat pesan "tidak ada hasil"
-                    noResultsDiv = document.createElement('div');
-                    noResultsDiv.id = 'no-results-message';
-                    noResultsDiv.className = 'text-center py-12 animate-fade-in';
-                    noResultsDiv.innerHTML = `
-                <div class="text-gray-400 mb-4">
-                    <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">Tidak ada UMKM ditemukan</h3>
-                <p class="text-gray-500">Coba ubah kata kunci pencarian atau pilih kategori lain</p>
-            `;
-
-                    // Insert setelah section cards
-                    const cardsContainer = document.querySelector('.grid') || document.querySelector(
-                        '.umkm-cards-container');
-                    if (cardsContainer && cardsContainer.parentNode) {
-                        cardsContainer.parentNode.insertBefore(noResultsDiv, cardsContainer.nextSibling);
-                    }
-                } else if (!show && noResultsDiv) {
-                    noResultsDiv.remove();
+                if (emptyState) {
+                    emptyState.classList.toggle('hidden', visibleCount > 0);
                 }
             }
 
-            // Initialize filter on page load
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    currentSearch = this.value.toLowerCase().trim();
+                    filterCards();
+                });
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    filterCards();
+                });
+            });
+
+            if (resetSearchBtn) {
+                resetSearchBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    currentSearch = '';
+                    currentCategory = '';
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    allFilterBtn.classList.add('active');
+                    filterCards();
+                });
+            }
+
             filterCards();
         });
     </script>

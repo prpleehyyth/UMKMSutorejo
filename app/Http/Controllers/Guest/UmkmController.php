@@ -14,12 +14,12 @@ class UmkmController extends Controller
     public function index()
     {
         $umkms = Umkm::with('businessType')->where('is_verified', true)->latest()->get();
-        $totalUMKM = Umkm::count();
+        $totalUmkm = Umkm::where('is_verified', true)->count();
         $totalKategori = BusinessType::count();
 
         $categories = BusinessType::orderBy('name')->get(); // <-- ambil semua kategori
 
-        return view('guest.umkm.index', compact('umkms', 'totalUMKM', 'totalKategori', 'categories'));
+        return view('guest.umkm.index', compact('umkms', 'totalUmkm', 'totalKategori', 'categories'));
     }
 
 
