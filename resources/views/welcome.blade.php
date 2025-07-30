@@ -103,7 +103,7 @@
                 <!-- Logo -->
                 <div class="flex items-center space-x-3">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                        <i class="fas fa-store text-primary text-lg sm:text-xl"></i>
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo Anda" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
                     </div>
                     <div>
                         <h1 class="text-lg sm:text-xl font-bold text-gray-800">UMKM</h1>
@@ -122,7 +122,7 @@
 
                     <!-- Navigation Links -->
                     <a href="#beranda" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
-                    <a href="#produk" class="text-gray-700 hover:text-primary font-medium">Produk</a>
+                    <a href="#produk" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
 
                     <!-- masuk dan daftar -->
                     <a href="{{ route('login') }}"
@@ -200,144 +200,16 @@
                     </div>
                 </div>
 
-                <!-- Product Showcase -->
-                <div class="relative animate-slide-right">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 p-6">
-                        <!-- Product Cards -->
-                        <div
-                            class="bg-white rounded-xl p-4 shadow-xl transform -rotate-3 hover:rotate-0 transition-all duration-300 card-hover animate-float">
-                            <div
-                                class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg mb-3 flex items-center justify-center">
-                                <i class="fas fa-pepper-hot text-white text-xl"></i>
-                            </div>
-                            <h4 class="text-sm font-bold text-gray-900">Rica Rica Nyambek</h4>
-                            <p class="text-xs text-gray-600">Josjis Lek</p>
-                        </div>
-
-                        <div class="bg-white rounded-xl p-4 shadow-xl transform rotate-2 hover:rotate-0 transition-all duration-300 card-hover animate-float"
-                            style="animation-delay: 0.5s;">
-                            <div
-                                class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-lg mb-3 flex items-center justify-center">
-                                <i class="fas fa-fish text-white text-xl"></i>
-                            </div>
-                            <h4 class="text-sm font-bold text-gray-900">Pepes Sendal</h4>
-                            <p class="text-xs text-gray-600">Ada Kenyal-Kenyal nya</p>
-                        </div>
-
-                        <div class="bg-white rounded-xl p-4 shadow-xl transform -rotate-1 hover:rotate-0 transition-all duration-300 card-hover animate-float"
-                            style="animation-delay: 1s;">
-                            <div
-                                class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg mb-3 flex items-center justify-center">
-                                <i class="fas fa-glass-water text-white text-xl"></i>
-                            </div>
-                            <h4 class="text-sm font-bold text-gray-900">Nutrisari</h4>
-                            <p class="text-xs text-gray-600">Minuman menyegarkan</p>
-                        </div>
-
-                        <div class="bg-white rounded-xl p-4 shadow-xl transform rotate-1 hover:rotate-0 transition-all duration-300 card-hover animate-float"
-                            style="animation-delay: 1.5s;">
-                            <div
-                                class="w-16 h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-lg mb-3 flex items-center justify-center">
-                                <i class="fas fa-utensils text-white text-xl"></i>
-                            </div>
-                            <h4 class="text-sm font-bold text-gray-900">Brengkesan Nyambek</h4>
-                            <p class="text-xs text-gray-600">Guuuwwwrriihh</p>
-                        </div>
-
-                        <div class="bg-white rounded-xl p-4 shadow-xl transform -rotate-2 hover:rotate-0 transition-all duration-300 card-hover animate-float"
-                            style="animation-delay: 2s;">
-                            <div
-                                class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg mb-3 flex items-center justify-center">
-                                <i class="fas fa-coffee text-white text-xl"></i>
-                            </div>
-                            <h4 class="text-sm font-bold text-gray-900">Good day Freeze</h4>
-                            <p class="text-xs text-gray-600">Minuman Sejuta Umat</p>
-                        </div>
-
-                        <div class="bg-white rounded-xl p-4 shadow-xl transform rotate-3 hover:rotate-0 transition-all duration-300 card-hover animate-float"
-                            style="animation-delay: 2.5s;">
-                            <div
-                                class="w-16 h-16 bg-gradient-to-br from-pink-400 to-pink-600 rounded-lg mb-3 flex items-center justify-center">
-                                <i class="fas fa-shrimp text-white text-xl"></i>
-                            </div>
-                            <h4 class="text-sm font-bold text-gray-900">Rica-Rica Yuyu</h4>
-                            <p class="text-xs text-gray-600">Juicy Cekali</p>
-                        </div>
-                    </div>
+                <div class="relative animate-slide-right mb-12">
+                    <img src="{{ asset('images/Banner.png') }}"
+                        alt="Banner Iklan"
+                        class="w-full rounded-xl shadow-xl">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== SECTION PENCARIAN INTERAKTIF (TAMBAHKAN DI SINI) ========== -->
-    <section id="pencarian"
-        class="bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 lg:py-20 relative overflow-hidden">
-        <!-- Background decoration -->
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-50/30 to-purple-50/30"></div>
-        <div
-            class="absolute top-0 left-0 w-64 h-64 bg-blue-200 rounded-full opacity-20 -translate-x-32 -translate-y-32">
-        </div>
-        <div
-            class="absolute bottom-0 right-0 w-96 h-96 bg-purple-200 rounded-full opacity-20 translate-x-32 translate-y-32">
-        </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Header Section -->
-            <div class="text-center mb-12">
-                <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                    <i class="fas fa-search mr-2"></i>
-                    Pencarian Cerdas
-                </div>
-                <h2 class="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-                    Temukan Produk UMKM
-                    <span class="gradient-text">Favorit Anda</span>
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Jelajahi berbagai produk lokal berkualitas dari para pelaku UMKM Dukuh Sutorejo.
-                    Dari Rica Rica Nyambek hingga Good Day Freeze, semua ada di sini!
-                </p>
-            </div>
-
-            <!-- Interactive Search Component Container -->
-            <div id="interactive-search-container" class="w-full">
-                <!-- React component akan di-mount di sini -->
-
-                <!-- Fallback content jika JavaScript disabled -->
-                <noscript>
-                    <div class="max-w-4xl mx-auto">
-                        <div class="relative mb-8">
-                            <input type="text" placeholder="Cari produk dalam..."
-                                class="w-full px-6 py-4 pl-14 text-lg border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-blue-100 shadow-lg">
-                            <i
-                                class="fas fa-search text-gray-400 absolute left-5 top-1/2 transform -translate-y-1/2 text-xl"></i>
-                        </div>
-                        <p class="text-center text-gray-600">Untuk pengalaman pencarian yang lebih baik, silakan
-                            aktifkan JavaScript.</p>
-                    </div>
-                </noscript>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                <div class="text-center p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-white/20">
-                    <div class="text-2xl font-bold text-blue-600 mb-1">50+</div>
-                    <div class="text-sm text-gray-600">Produk Tersedia</div>
-                </div>
-                <div class="text-center p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-white/20">
-                    <div class="text-2xl font-bold text-green-600 mb-1">25+</div>
-                    <div class="text-sm text-gray-600">UMKM Mitra</div>
-                </div>
-                <div class="text-center p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-white/20">
-                    <div class="text-2xl font-bold text-purple-600 mb-1">4.8</div>
-                    <div class="text-sm text-gray-600">Rating Rata-rata</div>
-                </div>
-                <div class="text-center p-4 bg-white/50 backdrop-blur-sm rounded-xl border border-white/20">
-                    <div class="text-2xl font-bold text-orange-600 mb-1">100%</div>
-                    <div class="text-sm text-gray-600">Produk Lokal</div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Partnership Section -->
     <section class="bg-white py-16 lg:py-20">
@@ -420,14 +292,14 @@
                     class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
 
                     <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        {{-- In a real app, you would use the UMKM's image: --}}
-                        {{-- <img src="{{ asset('storage/' . $umkm->image) }}" alt="{{ $umkm->name }}" class="w-full h-full object-cover"> --}}
+
+                        <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <i class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
                         </div>
                         <div class="absolute top-3 right-3">
-                            <span class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">{{ $umkm->businessType->name }}</span>
+                            <span class="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-yellow-400">{{ $umkm->businessType->name }}</span>
                         </div>
                     </div>
 
@@ -436,7 +308,7 @@
                             {{ $umkm->name }}
                         </h3>
                         <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                            {{ $umkm->short_description ?? 'Deskripsi singkat UMKM.' }}
+                            {{ $umkm->description ?? 'Deskripsi singkat UMKM.' }}
                         </p>
 
                         <a href="{{ route('guest.umkm.show', $umkm->id) }}"
@@ -581,8 +453,8 @@
                 <div class="space-y-6">
                     <div class="flex items-center space-x-3">
                         <div class="bg-white p-3 rounded-xl shadow-md">
-                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                                <i class="fas fa-store text-white text-xl"></i>
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo Anda" class="w-8 h-8 sm:w-10 sm:h-10 object-contain">
                             </div>
                         </div>
                         <div>
