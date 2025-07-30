@@ -380,360 +380,91 @@
             <!-- Header -->
             <div class="text-center mb-12">
                 <p class="text-blue-200 text-lg mb-2">Jelajahi dan Temukan</p>
-                <h2 class="text-3xl lg:text-4xl font-bold text-white">Produk Unggulan</h2>
+                <h2 class="text-3xl lg:text-4xl font-bold text-white">UMKM Unggulan</h2>
             </div>
 
-            <!-- Filter Tabs -->
+
+
             <div class="flex justify-center mb-12">
-                <div
-                    class="flex space-x-1 bg-white/10 backdrop-blur-lg rounded-2xl p-1.5 shadow-2xl border border-white/20">
-                    <button onclick="filterProducts('semua')"
+                <div class="flex flex-wrap justify-center space-x-1 bg-white/10 backdrop-blur-lg rounded-2xl p-1.5 shadow-2xl border border-white/20">
+                    <button onclick="filterProducts('semua', this)"
                         class="filter-btn bg-secondary text-gray-900 px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg">
                         <span class="flex items-center space-x-2">
                             <i class="fas fa-th-large"></i>
                             <span>Semua</span>
                         </span>
                     </button>
-                    <button onclick="filterProducts('makanan')"
+
+                    @foreach ($categories as $category)
+                    <button onclick="filterProducts('{{ Str::slug($category->name) }}', this)"
                         class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
                         <span class="flex items-center space-x-2">
+                            {{-- Dynamic icons based on category name --}}
+                            @if(Str::contains(strtolower($category->name), 'makanan'))
                             <i class="fas fa-utensils"></i>
-                            <span>Makanan</span>
-                        </span>
-                    </button>
-                    <button onclick="filterProducts('minuman')"
-                        class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
-                        <span class="flex items-center space-x-2">
+                            @elseif(Str::contains(strtolower($category->name), 'minuman'))
                             <i class="fas fa-glass-water"></i>
-                            <span>Minuman</span>
+                            @else
+                            <i class="fas fa-tag"></i> {{-- Default icon --}}
+                            @endif
+                            <span>{{ $category->name }}</span>
                         </span>
                     </button>
+                    @endforeach
                 </div>
             </div>
 
-            <!-- Products Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <!-- Product Card 1 -->
-                <div data-kategori="minuman"
+                @forelse ($umkms as $umkm)
+                <div data-kategori="{{ Str::slug($umkm->businessType->name) }}"
                     class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
 
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+                        {{-- In a real app, you would use the UMKM's image: --}}
+                        {{-- <img src="{{ asset('storage/' . $umkm->image) }}" alt="{{ $umkm->name }}" class="w-full h-full object-cover"> --}}
                         <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
+                            <i class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
                         </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">{{ $umkm->businessType->name }}</span>
                         </div>
                     </div>
 
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
+                    <div class="p-5">
+                        <h3 class="font-bold text-gray-900 text-lg mb-2 line-clamp-1">
+                            {{ $umkm->name }}
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+                            {{ $umkm->short_description ?? 'Deskripsi singkat UMKM.' }}
+                        </p>
 
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
+                        <a href="{{ route('guest.umkm.show', $umkm->id) }}"
+                            class="block w-full text-center bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-3 rounded-lg font-semibold text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
+                            <span class="flex items-center justify-center space-x-2">
                                 <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
+                                <span>Lihat Detail</span>
+                                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Product Card 2 -->
-                <div data-kategori="makanan"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Bothok an Ati</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
+                @empty
+                <div class="col-span-full text-center py-12">
+                    <p class="text-white text-lg">Belum ada UMKM yang ditampilkan.</p>
                 </div>
+                @endforelse
+            </div>
 
-                <!-- Product Card 3 -->
-                <div data-kategori="minuman"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product Card 4 -->
-                <div data-kategori="minuman"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product Card 5 -->
-                <div data-kategori="minuman"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product Card 6 -->
-                <div data-kategori="minuman"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <!-- Product Card 7 -->
-                <div data-kategori="minuman"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product Card 8 -->
-                <div data-kategori="minuman"
-                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
-
-                    <!-- Image Container - Responsive aspect ratio -->
-                    <div
-                        class="aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <i
-                                class="fas fa-coffee text-white text-2xl sm:text-3xl lg:text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <div class="absolute top-2 right-2 sm:top-3 sm:right-3">
-                            <span
-                                class="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">Premium</span>
-                        </div>
-                    </div>
-
-                    <!-- Content Container - Responsive padding and text -->
-                    <div class="p-3 sm:p-4 lg:p-5">
-                        <h3 class="font-bold text-gray-900 text-sm sm:text-base lg:text-lg mb-1 sm:mb-2 line-clamp-1">
-                            Kopi Nusantara</h3>
-                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3 lg:mb-4 line-clamp-2 leading-relaxed">
-                            Kopi lokal premium dengan cita rasa autentik</p>
-
-                        <!-- Button - Responsive sizing -->
-                        <button onclick="showDetail('kopi')"
-                            class="w-full bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-2 sm:py-2.5 lg:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                            <span class="flex items-center justify-center space-x-1 sm:space-x-2">
-                                <i class="fas fa-eye text-xs"></i>
-                                <span class="hidden xs:inline">Lihat Detail</span>
-                                <span class="xs:hidden">Detail</span>
-                                <i
-                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- View More Button -->
-                <div class="text-center">
-                    <button id="view-more-btn"
-                        class="text-white hover:text-secondary text-lg font-semibold transition-all duration-300 transform hover:scale-105 px-8 py-3 rounded-xl hover:bg-white/10 backdrop-blur-sm border border-white/20">
-                        <span class="flex items-center justify-center space-x-2">
-                            <span>Lihat Selengkapnya</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </span>
-                    </button>
-                </div>
+            <div class="text-center">
+                {{-- This button now links to the full UMKM page --}}
+                <a href="{{ route('guest.umkm.index') }}"
+                    class="inline-block text-white hover:text-secondary text-lg font-semibold transition-all duration-300 transform hover:scale-105 px-8 py-3 rounded-xl hover:bg-white/10 backdrop-blur-sm border border-white/20">
+                    <span class="flex items-center justify-center space-x-2">
+                        <span>Lihat Selengkapnya</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                </a>
             </div>
     </section>
 

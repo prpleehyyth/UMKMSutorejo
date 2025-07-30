@@ -31,7 +31,18 @@ class UmkmController extends Controller
 
     public function landing()
     {
-        $umkms = \App\Models\Umkm::latest()->take(8)->get(); // ambil 8 UMKM unggulan
-        return view('welcome', compact('umkms')); // pastikan view-nya sesuai
+        // 1. Eager load the 'businessType' relationship with 'with()'
+        // 2. Ensure only verified UMKM are shown
+        $umkms = Umkm::with('businessType')
+            ->where('is_verified', true)
+            ->latest()
+            ->take(8) // Takes the 8 most recent verified UMKM
+            ->get();
+
+        // 3. Fetch all categories to create the filter buttons dynamically
+        $categories = BusinessType::orderBy('name')->get();
+
+        // 4. Pass both variables to the 'welcome' view
+        return view('welcome', compact('umkms', 'categories'));
     }
 }
