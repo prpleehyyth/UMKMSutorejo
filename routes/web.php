@@ -36,11 +36,11 @@ Route::get('/produk/{id}', [ProductController::class, 'show'])->name('guest.prod
 
 
 // Register 2 Langkah
-Route::get('/register-step-1', [RegisterStepController::class, 'showStep1'])->name('register.step1');
-Route::post('/register-step-1', [RegisterStepController::class, 'processStep1']);
+Route::get('/register/step1', [RegisterStepController::class, 'showStep1'])->name('register.step1');
+Route::post('/register/step1', [RegisterStepController::class, 'processStep1']);
 
-Route::get('/register-step-2', [RegisterStepController::class, 'showStep2'])->name('register.step2');
-Route::post('/register-step-2', [RegisterStepController::class, 'processStep2']);
+Route::get('/register/step2', [RegisterStepController::class, 'showStep2'])->name('register.step2');
+Route::post('/register/step2', [RegisterStepController::class, 'processStep2']);
 
 // Verifikasi Email
 Route::get('/email/verify', function () {

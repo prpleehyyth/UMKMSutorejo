@@ -69,7 +69,7 @@
         <div class="mt-6 text-center">
             <p class="text-sm text-gray-600">
                 Belum punya akun?
-                <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">
+                <a href="{{ route('register.step1') }}" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">
                     Daftar di sini
                 </a>
             </p>

@@ -73,10 +73,12 @@
                         <a href="#" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
                         <a href="#UMKM" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
                         <a href="{{ route('login') }}">
-                            <button class="bg-gray-800 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-700 transition">Masuk</button>
+                            <button
+                                class="bg-gray-800 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-700 transition">Masuk</button>
                         </a>
                         <a href="{{ route('register.step1') }}">
-                            <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Daftar</button>
+                            <button
+                                class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Daftar</button>
                         </a>
 
                     </div>
@@ -96,7 +98,8 @@
                     </span>
                 </h2>
                 <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Dukung ekonomi lokal dengan berbelanja dari UMKM pilihan yang menawarkan produk berkualitas dan layanan terpercaya
+                    Dukung ekonomi lokal dengan berbelanja dari UMKM pilihan yang menawarkan produk berkualitas dan
+                    layanan terpercaya
                 </p>
             </div>
 
@@ -104,37 +107,45 @@
             <div class="max-w-2xl mx-auto mb-12 animate-fade-in">
                 <div class="bg-white rounded-2xl shadow-lg p-6 border border-indigo-100">
                     <div class="flex flex-col md:flex-row gap-4">
-                        <div class="flex-1 relative">
-                            <input type="text"
-                                placeholder="Cari UMKM berdasarkan nama atau produk..."
-                                class="w-full px-4 py-3 pl-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                id="searchInput">
-                            <svg class="w-5 h-5 text-gray-400 absolute left-4 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+                        <div
+                            class="flex space-x-1 bg-white/10 backdrop-blur-lg rounded-2xl p-1.5 shadow-2xl border border-white/20">
+                            <button onclick="filterProducts('semua')"
+                                class="filter-btn bg-secondary text-gray-900 px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg">
+                                <span class="flex items-center space-x-2">
+                                    <i class="fas fa-th-large"></i>
+                                    <span>Semua</span>
+                                </span>
+                            </button>
+                            <button onclick="filterProducts('makanan')"
+                                class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
+                                <span class="flex items-center space-x-2">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Makanan</span>
+                                </span>
+                            </button>
+                            <button onclick="filterProducts('minuman')"
+                                class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
+                                <span class="flex items-center space-x-2">
+                                    <i class="fas fa-glass-water"></i>
+                                    <span>Minuman</span>
+                                </span>
+                            </button>
                         </div>
-                        <select class="px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all" id="categoryFilter">
-                            <option value="">Semua Kategori</option>
-                            @foreach ($categories as $category)
-                            <option value="{{ strtolower($category->slug ?? Str::slug($category->name)) }}">
-                                {{ $category->name }}
-                            </option>
-                            @endforeach
-                        </select>
-
                     </div>
                 </div>
             </div>
 
             <!-- Statistics -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-indigo-100 hover:bg-white/80 transition-all">
+                <div
+                    class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-indigo-100 hover:bg-white/80 transition-all">
                     <div class="text-3xl font-bold text-indigo-600 mb-2" id="totalUMKM">
                         {{ number_format($totalUMKM) }}
                     </div>
                     <div class="text-sm text-gray-600">UMKM Terdaftar</div>
                 </div>
-                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-purple-100 hover:bg-white/80 transition-all">
+                <div
+                    class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-purple-100 hover:bg-white/80 transition-all">
                     <div class="text-3xl font-bold text-purple-600 mb-2">
                         {{ number_format($totalKategori) }}
                     </div>
@@ -150,17 +161,19 @@
         <div class="max-w-7xl mx-auto px-4">
             <div id="umkmGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($umkms as $umkm)
-                <div class="umkm-card" data-category="{{ strtolower($umkm->businessType->name ?? 'lainnya') }}">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold">{{ $umkm->name }}</h3>
-                        <p class="text-sm text-gray-600">{{ Str::limit($umkm->description, 100) }}</p>
-                        <p class="text-xs mt-2 text-gray-500">📍 {{ $umkm->address }}</p>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full mt-2 inline-block">
-                            {{ $umkm->businessType->name ?? 'Lainnya' }}
-                        </span>
-                        <a href="{{ route('guest.umkm.show', $umkm->id) }}" class="mt-4 block text-indigo-600 hover:underline">Lihat Detail</a>
+                    <div class="umkm-card" data-category="{{ strtolower($umkm->businessType->name ?? 'lainnya') }}">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold">{{ $umkm->name }}</h3>
+                            <p class="text-sm text-gray-600">{{ Str::limit($umkm->description, 100) }}</p>
+                            <p class="text-xs mt-2 text-gray-500">📍 {{ $umkm->address }}</p>
+                            <span
+                                class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full mt-2 inline-block">
+                                {{ $umkm->businessType->name ?? 'Lainnya' }}
+                            </span>
+                            <a href="{{ route('guest.umkm.show', $umkm->id) }}"
+                                class="mt-4 block text-indigo-600 hover:underline">Lihat Detail</a>
+                        </div>
                     </div>
-                </div>
                 @endforeach
 
                 <!-- Empty State (show when no results) -->
@@ -169,7 +182,8 @@
                         <div class="text-6xl mb-4">🔍</div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-2">Tidak ada UMKM ditemukan</h3>
                         <p class="text-gray-600 mb-6">Coba ubah kata kunci pencarian atau filter kategori</p>
-                        <button id="resetSearch" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                        <button id="resetSearch"
+                            class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
                             Reset Pencarian
                         </button>
                     </div>
@@ -178,7 +192,8 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-12">
-                <button class="px-8 py-3 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                <button
+                    class="px-8 py-3 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                     Muat Lebih Banyak UMKM
                 </button>
             </div>
@@ -203,7 +218,8 @@
                         </div>
                     </div>
                     <p class="text-gray-400 leading-relaxed">
-                        Website Resmi UMKM Kelurahan Dukuh Sutorejo, Kecamatan Mulyorejo, Kota Surabaya, Provinsi Jawa Timur, Indonesia
+                        Website Resmi UMKM Kelurahan Dukuh Sutorejo, Kecamatan Mulyorejo, Kota Surabaya, Provinsi Jawa
+                        Timur, Indonesia
                     </p>
                 </div>
 
@@ -221,7 +237,8 @@
             <!-- Copyright -->
             <div class="border-t border-gray-800 mt-16 pt-8 text-center">
                 <p class="text-gray-400">
-                    © 2025 Copyright Pemerintahan Kelurahan Dukuh Sutorejo - Design By Kelompok KKN 47 UPN Veteran Jawa Timur 2025
+                    © 2025 Copyright Pemerintahan Kelurahan Dukuh Sutorejo - Design By Kelompok KKN 47 UPN Veteran Jawa
+                    Timur 2025
                 </p>
             </div>
         </div>

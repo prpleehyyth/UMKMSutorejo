@@ -102,9 +102,8 @@
             <div class="flex justify-between items-center h-16 sm:h-20">
                 <!-- Logo -->
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                        <i class="fas fa-store text-primary text-lg sm:text-xl"></i>
-                    </div>
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo"
+                        class="w-12 h-12 sm:w-16 sm:h-16 object-contain">
                     <div>
                         <h1 class="text-lg sm:text-xl font-bold text-gray-800">UMKM</h1>
                         <p class="text-xs sm:text-sm text-gray-600">Dukuh Sutorejo</p>
@@ -753,7 +752,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_kelurahan.png') }}"
+                                <img src="{{ asset('images/logo_kelurahan.png') }}"
                                     alt="Kelurahan Dukuh Sutorejo Logo" class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -770,7 +769,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_upn.png') }}" alt="UPN Veteran Jatim Logo"
+                                <img src="{{ asset('images/logo_upn.png') }}" alt="UPN Veteran Jatim Logo"
                                     class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -787,7 +786,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_lppm.png') }}" alt="LPPM Logo"
+                                <img src="{{ asset('images/logo_lppm.png') }}" alt="LPPM Logo"
                                     class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -804,7 +803,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_diktisaintek.png') }}"
+                                <img src="{{ asset('images/logo_diktisaintek.png') }}"
                                     alt="Diktisaintek Berdampak Logo" class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -821,7 +820,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_kkn.png') }}" alt="Partner Logo"
+                                <img src="{{ asset('images/logo_kkn.png') }}" alt="Partner Logo"
                                     class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -850,9 +849,8 @@
                 <div class="space-y-6">
                     <div class="flex items-center space-x-3">
                         <div class="bg-white p-3 rounded-xl shadow-md">
-                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                                <i class="fas fa-store text-white text-xl"></i>
-                            </div>
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo UMKM"
+                                class="w-12 h-12 object-contain" />
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold">UMKM</h3>
@@ -1323,10 +1321,10 @@
                         <h3 class="text-lg font-semibold text-gray-800 mb-3">Keunggulan</h3>
                         <div class="flex flex-wrap gap-2">
                             ${product.features.map(feature => `
-                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                                                <i class="fas fa-check mr-1"></i>${feature}
-                                            </span>
-                                        `).join('')}
+                                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                                    <i class="fas fa-check mr-1"></i>${feature}
+                                                </span>
+                                            `).join('')}
                         </div>
                     </div>
                     

@@ -51,9 +51,9 @@ class RegisterStepController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:100',
-            'nib' => 'nullable|string',
+            'nib' => ['required', 'digits:13'], // ← wajib 13 digit
             'business_type_id' => 'required|exists:business_types,id',
-            'revenue' => 'nullable|string',
+            'omzet' => ['required', 'numeric', 'min:1000'], // ← wajib angka & tidak boleh nol
             'halal_certified' => 'nullable|string|max:50',
             'address' => 'required|string',
             'google_maps_link' => 'nullable|string|url',
@@ -73,7 +73,7 @@ class RegisterStepController extends Controller
                 'name' => $data['name'],
                 'nib' => $data['nib'],
                 'business_type_id' => $data['business_type_id'],
-                'revenue' => $data['revenue'],
+                'omzet' => $data['omzet'],
                 'halal_certified' => $data['halal_certified'],
                 'address' => $data['address'],
                 'google_maps_link' => $data['google_maps_link'],
