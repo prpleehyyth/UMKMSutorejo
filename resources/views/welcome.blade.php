@@ -129,7 +129,7 @@
                         Masuk
                     </a>
 
-                    <a href="{{ route('register') }}"
+                    <a href="{{ route('register.step1') }}"
                         class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300">
                         Daftar
                     </a>
@@ -227,7 +227,7 @@
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button
                         class="bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-xl">
-                        <a href="{{ route('register') }}">
+                        <a href="{{ route('register.step1') }}">
                             Daftar Sekarang
                         </a>
                     </button>
