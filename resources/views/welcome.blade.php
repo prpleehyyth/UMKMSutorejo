@@ -356,7 +356,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_kelurahan.png') }}"
+                                <img src="{{ asset('images/logo_dusut.png') }}"
                                     alt="Kelurahan Dukuh Sutorejo Logo" class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -373,7 +373,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_upn.png') }}" alt="UPN Veteran Jatim Logo"
+                                <img src="{{ asset('images/LOGO UPNVJT.png') }}" alt="UPN Veteran Jatim Logo"
                                     class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -390,7 +390,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_lppm.png') }}" alt="LPPM Logo"
+                                <img src="{{ asset('images/lppm 1.png') }}" alt="LPPM Logo"
                                     class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -407,7 +407,7 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_diktisaintek.png') }}"
+                                <img src="{{ asset('images/diktisaintek 1.png') }}"
                                     alt="Diktisaintek Berdampak Logo" class="w-16 h-16 object-contain" />
                             </div>
                             <div>
@@ -424,12 +424,12 @@
                         class="bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                         <div class="flex flex-col items-center text-center">
                             <div class="mb-4">
-                                <img src="{{ asset('storage/asset/logo_kkn.png') }}" alt="Partner Logo"
+                                <img src="{{ asset('images/logo kkn fix.png') }}" alt="Partner Logo"
                                     class="w-16 h-16 object-contain" />
                             </div>
                             <div>
-                                <h4 class="text-sm font-bold text-gray-800 leading-tight">Partner</h4>
-                                <p class="text-xs text-gray-600">Organization</p>
+                                <h4 class="text-sm font-bold text-gray-800 leading-tight">Kelompok</h4>
+                                <p class="text-xs text-gray-600">KKN 47</p>
                             </div>
                         </div>
                     </div>
