@@ -35,16 +35,19 @@
                             @enderror
                         </div>
 
-                        <!-- Deskripsi -->
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                                Deskripsi
+                                Deskripsi <span class="text-red-500">*</span>
                             </label>
+
+                            {{-- [FIXED] Atribut placeholder diletakkan dengan benar dan old() hanya dipanggil sekali --}}
                             <textarea id="description"
                                 name="description"
                                 rows="4"
                                 class="block w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                placeholder="Masukkan deskripsi produk">{{ old('description') }}</textarea>
+                                placeholder="Masukkan deskripsi produk"
+                                required>{{ old('description') }}</textarea>
+
                             @error('description')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -53,7 +56,7 @@
                         <!-- Harga Estimasi -->
                         <div>
                             <label for="estimated_price" class="block text-sm font-medium text-gray-700 mb-2">
-                                Harga
+                                Harga <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

@@ -3,8 +3,6 @@
     <x-slot name="header">Data UMKM</x-slot>
 
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-
-
         <!-- Search and Filter Section -->
         <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">

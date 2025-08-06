@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $umkm->name }} - UMKM Kelurahan Sutorejo</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
     {{-- Tailwind CSS & Konfigurasi Kustom --}}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -132,9 +133,9 @@
                     </div>
                 </div>
                 @endif
-                {{-- Variabel diperbaiki dari Maps_link menjadi Maps_link --}}
+
                 @if($umkm->google_maps_link)
-                <a href="{{ $umkm->Maps_link }}" target="_blank" class="flex items-center gap-3 p-3 bg-off-white rounded-lg hover:bg-slate-200 transition-colors">
+                <a href="{{ $umkm->google_maps_link }}" target="_blank" class="flex items-center gap-3 p-3 bg-off-white rounded-lg hover:bg-slate-200 transition-colors">
                     <i class="fa-solid fa-map-location-dot fa-lg text-primary/70"></i>
                     <div>
                         <p class="text-xs text-slate-500">Lokasi</p>
@@ -142,6 +143,7 @@
                     </div>
                 </a>
                 @endif
+
                 @if($umkm->halal_certified)
                 <div class="flex items-center gap-3 p-3 bg-off-white rounded-lg">
                     <i class="fa-solid fa-check-circle fa-lg text-green-700/80"></i>

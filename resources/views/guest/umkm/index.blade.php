@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Daftar UMKM - Marketplace Lokal</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
         tailwind.config = {
@@ -103,34 +106,40 @@
 </head>
 
 <body class="bg-slate-50 min-h-screen">
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <nav x-data="{ open: false }" class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-
-                <div class="flex items-center space-x-3">
-                    <div class="text-white p-2 rounded-lg">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo"
-                            class="w-12 h-12 sm:w-16 sm:h-16 object-contain">
-                    </div>
+                <a href="{{ url('/') }}" class="flex items-center space-x-3 flex-shrink-0">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo" class="w-14 h-14 object-contain">
                     <div>
-                        <h1 class="text-xl font-bold text-gray-900">UMKM</h1>
-                        <p class="text-sm text-gray-500">Dukuh Sutorejo</p>
+                        {{-- Ditambahkan font-serif --}}
+                        <h1 class="font-serif text-xl font-bold text-slate-800">UMKM</h1>
+                        <p class="text-sm text-slate-500">Dukuh Sutorejo</p>
+                    </div>
+                </a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="{{ url('/') }}" class="font-semibold text-slate-600 hover:text-primary transition-colors">Beranda</a>
+                    <a href="{{ route('guest.umkm.index') }}" class="font-semibold text-slate-600 hover:text-primary transition-colors">Galeri UMKM</a>
+                    <div class="pl-4 flex items-center space-x-3">
+                        <a href="{{ route('login') }}" class="font-semibold text-primary px-5 py-2 rounded-lg hover:bg-indigo-50 transition-colors">Masuk</a>
+                        <a href="{{ route('register.step1') }}" class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-darkBlue transition-colors">Daftar</a>
                     </div>
                 </div>
-
-                <div class="flex items-center space-x-6">
-                    <div class="flex items-center space-x-6">
-                        <a href="{{ url('/')}}" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
-                        <a href="#umkm" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
-                        <a href="{{ route('login') }}">
-                            <button
-                                class="bg-gray-800 text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-700 transition">Masuk</button>
-                        </a>
-                        <a href="{{ route('register.step1') }}">
-                            <button
-                                class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-600 transition">Daftar</button>
-                        </a>
-                    </div>
+                <div class="md:hidden flex items-center">
+                    <button @click="open = !open" class="text-slate-600 hover:text-primary p-2 rounded-md">
+                        <i x-show="!open" class="fas fa-bars text-xl"></i>
+                        <i x-show="open" style="display: none;" class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div x-show="open" x-collapse style="display: none;" class="md:hidden bg-white border-t border-slate-200">
+            <div class="px-4 pt-4 pb-6 space-y-3">
+                <a href="{{ url('/') }}" class="block px-3 py-2 text-base font-semibold text-slate-700 rounded-md hover:bg-slate-100">Beranda</a>
+                <a href="{{ route('guest.umkm.index') }}" class="block px-3 py-2 text-base font-semibold text-slate-700 rounded-md hover:bg-slate-100">Galeri UMKM</a>
+                <div class="border-t border-slate-200 pt-4 space-y-3">
+                    <a href="{{ route('login') }}" class="block w-full text-center font-semibold text-primary border border-primary px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors">Masuk</a>
+                    <a href="{{ route('register.step1') }}" class="block w-full text-center bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-darkBlue transition-colors">Daftar</a>
                 </div>
             </div>
         </div>

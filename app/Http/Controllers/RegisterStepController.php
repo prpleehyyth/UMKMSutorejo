@@ -57,7 +57,7 @@ class RegisterStepController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:100',
-            'nib' => ['required', 'digits:13'], // ← wajib 13 digit
+            'nib' => ['nullable', 'digits:13'],
             'business_type_id' => 'required|exists:business_types,id',
             'omzet' => ['required', 'numeric', 'min:1000'], // ← wajib angka & tidak boleh nol
             'halal_certified' => 'nullable|string|max:50',

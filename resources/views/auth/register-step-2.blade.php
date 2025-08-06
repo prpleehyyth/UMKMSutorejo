@@ -45,12 +45,12 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {{-- NIB --}}
+                        {{-- NIB (Opsional dengan label yang lebih jelas) --}}
                         <div>
-                            <x-input-label for="nib" value="NIB (Nomor Induk Berusaha)" />
+                            <x-input-label for="nib" value="NIB (Nomor Induk Berusaha) - Opsional" />
                             <div class="relative mt-1">
                                 <i class="fa-solid fa-hashtag absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                                <x-text-input id="nib" name="nib" type="text" placeholder="13 Digit NIB" class="pl-10 w-full" :value="old('nib')" required />
+                                <x-text-input id="nib" name="nib" type="text" placeholder="Contoh: 1234567890123" class="pl-10 w-full" :value="old('nib')" />
                             </div>
                             <x-input-error :messages="$errors->get('nib')" class="mt-2" />
                         </div>

@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMKM Dukuh Sutorejo</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
         tailwind.config = {
@@ -98,64 +101,43 @@
 <body class="bg-gray-50">
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav x-data="{ open: false }" class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 sm:h-20">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo"
-                        class="w-12 h-12 sm:w-16 sm:h-16 object-contain">
+            <div class="flex justify-between items-center h-20">
+                <a href="{{ url('/') }}" class="flex items-center space-x-3 flex-shrink-0">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo" class="w-14 h-14 object-contain">
                     <div>
-                        <h1 class="text-lg sm:text-xl font-bold text-gray-800">UMKM</h1>
-                        <p class="text-xs sm:text-sm text-gray-600">Dukuh Sutorejo</p>
+                        {{-- Ditambahkan font-serif --}}
+                        <h1 class="font-serif text-xl font-bold text-slate-800">UMKM</h1>
+                        <p class="text-sm text-slate-500">Dukuh Sutorejo</p>
                     </div>
-                </div>
-
-                <!-- Desktop Navigation -->
+                </a>
                 <div class="hidden md:flex items-center space-x-6">
-
-                    <!-- Navigation Links -->
-                    <a href="#beranda" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
-                    <a href="#produk" class="text-gray-700 hover:text-primary font-medium">UMKM</a>
-
-                    <!-- masuk dan daftar -->
-                    <a href="{{ route('login') }}"
-                        class="bg-white text-primary border border-primary px-4 py-2 rounded-lg font-medium hover:bg-primary hover:text-white transition-all duration-300">
-                        Masuk
-                    </a>
-
-                    <a href="{{ route('register.step1') }}"
-                        class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-300">
-                        Daftar
-                    </a>
-
-                    <!-- Mobile Menu Button -->
-                    <div class="md:hidden">
-                        <button id="mobile-menu-btn" class="text-gray-600 hover:text-primary">
-                            <i class="fas fa-bars text-xl"></i>
-                        </button>
+                    <a href="{{ url('/') }}" class="font-semibold text-slate-600 hover:text-primary transition-colors">Beranda</a>
+                    <a href="{{ route('guest.umkm.index') }}" class="font-semibold text-slate-600 hover:text-primary transition-colors">Galeri UMKM</a>
+                    <div class="pl-4 flex items-center space-x-3">
+                        <a href="{{ route('login') }}" class="font-semibold text-primary px-5 py-2 rounded-lg hover:bg-indigo-50 transition-colors">Masuk</a>
+                        <a href="{{ route('register.step1') }}" class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-darkBlue transition-colors">Daftar</a>
                     </div>
                 </div>
-
-                <!-- Mobile Menu -->
-                <div id="mobile-menu" class="md:hidden hidden">
-                    <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
-                        <div class="mb-4">
-                            <input type="text" placeholder="Cari produk dalam..."
-                                class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                            <i class="fas fa-search text-gray-400 absolute left-6 top-3"></i>
-                        </div>
-                        <a href="#beranda" class="block px-3 py-2 text-gray-700 hover:text-primary">Beranda</a>
-                        <a href="#produk" class="block px-3 py-2 text-gray-700 hover:text-primary">Produk</a>
-                        <div class="pt-4 space-y-2">
-                            <button
-                                class="w-full bg-white text-primary border border-primary px-4 py-2 rounded-lg font-medium">Masuk</button>
-                            <button
-                                class="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium">Daftar</button>
-                        </div>
-                    </div>
+                <div class="md:hidden flex items-center">
+                    <button @click="open = !open" class="text-slate-600 hover:text-primary p-2 rounded-md">
+                        <i x-show="!open" class="fas fa-bars text-xl"></i>
+                        <i x-show="open" style="display: none;" class="fas fa-times text-xl"></i>
+                    </button>
                 </div>
             </div>
+        </div>
+        <div x-show="open" x-collapse style="display: none;" class="md:hidden bg-white border-t border-slate-200">
+            <div class="px-4 pt-4 pb-6 space-y-3">
+                <a href="{{ url('/') }}" class="block px-3 py-2 text-base font-semibold text-slate-700 rounded-md hover:bg-slate-100">Beranda</a>
+                <a href="{{ route('guest.umkm.index') }}" class="block px-3 py-2 text-base font-semibold text-slate-700 rounded-md hover:bg-slate-100">Galeri UMKM</a>
+                <div class="border-t border-slate-200 pt-4 space-y-3">
+                    <a href="{{ route('login') }}" class="block w-full text-center font-semibold text-primary border border-primary px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors">Masuk</a>
+                    <a href="{{ route('register.step1') }}" class="block w-full text-center bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-darkBlue transition-colors">Daftar</a>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -261,69 +243,69 @@
                     </button>
 
                     @foreach ($categories as $category)
-                        <button onclick="filterProducts('{{ Str::slug($category->name) }}', this)"
-                            class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
-                            <span class="flex items-center space-x-2">
-                                {{-- Dynamic icons based on category name --}}
-                                @if (Str::contains(strtolower($category->name), 'makanan'))
-                                    <i class="fas fa-utensils"></i>
-                                @elseif(Str::contains(strtolower($category->name), 'minuman'))
-                                    <i class="fas fa-glass-water"></i>
-                                @else
-                                    <i class="fas fa-tag"></i> {{-- Default icon --}}
-                                @endif
-                                <span>{{ $category->name }}</span>
-                            </span>
-                        </button>
+                    <button onclick="filterProducts('{{ Str::slug($category->name) }}', this)"
+                        class="filter-btn text-white px-6 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 font-medium">
+                        <span class="flex items-center space-x-2">
+                            {{-- Dynamic icons based on category name --}}
+                            @if (Str::contains(strtolower($category->name), 'makanan'))
+                            <i class="fas fa-utensils"></i>
+                            @elseif(Str::contains(strtolower($category->name), 'minuman'))
+                            <i class="fas fa-glass-water"></i>
+                            @else
+                            <i class="fas fa-tag"></i> {{-- Default icon --}}
+                            @endif
+                            <span>{{ $category->name }}</span>
+                        </span>
+                    </button>
                     @endforeach
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                 @forelse ($umkms as $umkm)
-                    <div data-kategori="{{ Str::slug($umkm->businessType->name) }}"
-                        class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
+                <div data-kategori="{{ Str::slug($umkm->businessType->name) }}"
+                    class="produk-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group card-hover w-full max-w-sm mx-auto sm:max-w-none">
 
-                        <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+                    <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
 
-                            <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}"
-                                class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i
-                                    class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
-                            </div>
-                            <div class="absolute top-3 right-3">
-                                <span
-                                    class="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-yellow-400">{{ $umkm->businessType->name }}</span>
-                            </div>
+                        <img src="{{ asset('storage/' . $umkm->logo) }}" alt="{{ $umkm->name }}"
+                            class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i
+                                class="fas fa-store text-white text-4xl group-hover:scale-110 transition-transform duration-300"></i>
                         </div>
-
-                        <div class="p-5">
-                            <h3 class="font-bold text-gray-900 text-lg mb-2 line-clamp-1">
-                                {{ $umkm->name }}
-                            </h3>
-                            <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                                {{ $umkm->description ?? 'Deskripsi singkat UMKM.' }}
-                            </p>
-
-                            <a href="{{ route('guest.umkm.show', $umkm->id) }}"
-                                class="block w-full text-center bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-3 rounded-lg font-semibold text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
-                                <span class="flex items-center justify-center space-x-2">
-                                    <i class="fas fa-eye text-xs"></i>
-                                    <span>Lihat Detail</span>
-                                    <i
-                                        class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
-                                </span>
-                            </a>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-medium text-yellow-400">{{ $umkm->businessType->name }}</span>
                         </div>
                     </div>
+
+                    <div class="p-5">
+                        <h3 class="font-bold text-gray-900 text-lg mb-2 line-clamp-1">
+                            {{ $umkm->name }}
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+                            {{ $umkm->description ?? 'Deskripsi singkat UMKM.' }}
+                        </p>
+
+                        <a href="{{ route('guest.umkm.show', $umkm->id) }}"
+                            class="block w-full text-center bg-gradient-to-r from-secondary to-yellow-400 text-gray-900 py-3 rounded-lg font-semibold text-sm hover:from-yellow-400 hover:to-secondary transition-all duration-300 transform hover:scale-105 shadow-md group">
+                            <span class="flex items-center justify-center space-x-2">
+                                <i class="fas fa-eye text-xs"></i>
+                                <span>Lihat Detail</span>
+                                <i
+                                    class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
 
 
                 @empty
-                    <div class="col-span-full text-center py-12">
-                        <p class="text-white text-lg">Belum ada UMKM yang ditampilkan.</p>
-                    </div>
+                <div class="col-span-full text-center py-12">
+                    <p class="text-white text-lg">Belum ada UMKM yang ditampilkan.</p>
+                </div>
                 @endforelse
             </div>
 

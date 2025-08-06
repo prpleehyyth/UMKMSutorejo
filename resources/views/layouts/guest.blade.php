@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'UMKM Sutorejo') }}</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
 
     {{-- Tailwind CSS & Konfigurasi Kustom --}}
     <script src="https://cdn.tailwindcss.com"></script>
