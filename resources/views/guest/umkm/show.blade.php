@@ -14,8 +14,9 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary': '#4F46E5', // Warna Indigo-600
-                        'darkBlue': '#1E40AF', // Warna Biru-800
+                        'primary': '#4F46E5',
+                        'secondary': '#FCD34D',
+                        'darkBlue': '#1E40AF',
                         'off-white': '#f8fafc',
                     },
                     fontFamily: {
@@ -27,25 +28,52 @@
         }
     </script>
 
-    {{-- Dependencies: Fonts & Icons --}}
+    {{-- Dependencies: Fonts, Icons, and Alpine.js --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {{-- Custom Styles from Saved Theme --}}
+    <style>
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-up {
+            animation: slideInUp 0.7s ease-out forwards;
+        }
+    </style>
 </head>
 
 <body class="bg-off-white font-sans text-slate-700">
 
-    {{-- Navbar --}}
+    {{-- Navbar (Consistent) --}}
     <nav x-data="{ open: false }" class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="{{ url('/') }}" class="flex items-center space-x-3 flex-shrink-0">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo" class="w-14 h-14 object-contain">
                     <div>
-                        {{-- Ditambahkan font-serif --}}
                         <h1 class="font-serif text-xl font-bold text-slate-800">UMKM</h1>
                         <p class="text-sm text-slate-500">Dukuh Sutorejo</p>
                     </div>
@@ -78,18 +106,24 @@
         </div>
     </nav>
 
-    {{-- Header / Profil Utama UMKM --}}
-    <header class="py-16 bg-white border-b border-slate-200">
+    {{-- Header / Profil Utama UMKM (Restyled) --}}
+    <header class="py-16 lg:py-20 bg-gradient-to-r from-primary via-blue-600 to-darkBlue text-white">
         <div class="max-w-4xl mx-auto px-6">
             <nav class="text-sm mb-8" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2">
                     <li class="inline-flex items-center">
-                        <a href="{{ url('/') }}" class="text-slate-500 hover:text-primary">Beranda</a>
+                        <a href="{{ url('/') }}" class="text-blue-200 hover:text-white">Beranda</a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right w-3 h-3 text-blue-300"></i>
+                            <a href="{{ route('guest.umkm.index') }}" class="ml-1 text-blue-200 hover:text-white md:ml-2">Galeri UMKM</a>
+                        </div>
                     </li>
                     <li aria-current="page">
                         <div class="flex items-center">
-                            <i class="fa-solid fa-chevron-right w-3 h-3 text-slate-400"></i>
-                            <span class="ml-1 font-semibold text-slate-800 md:ml-2">{{ $umkm->name }}</span>
+                            <i class="fa-solid fa-chevron-right w-3 h-3 text-blue-300"></i>
+                            <span class="ml-1 font-semibold text-white md:ml-2">{{ $umkm->name }}</span>
                         </div>
                     </li>
                 </ol>
@@ -97,153 +131,174 @@
             <div class="flex flex-col md:flex-row items-center text-center md:text-left gap-8">
                 @if($umkm->logo)
                 <div class="flex-shrink-0">
-                    <img src="{{ asset('storage/' . $umkm->logo) }}" alt="Logo {{ $umkm->name }}"
-                        class="w-32 h-32 object-cover rounded-full shadow-md border-4 border-white">
+                    <img src="{{ asset('storage/' . $umkm->logo) }}" alt="Logo {{ $umkm->name }}" class="w-32 h-32 lg:w-36 lg:h-36 object-cover rounded-full shadow-lg border-4 border-white/20">
                 </div>
                 @endif
                 <div class="flex-grow">
-                    <h1 class="font-serif text-4xl font-bold text-slate-800">{{ $umkm->name }}</h1>
-                    <p class="text-slate-500 mt-2 text-base">{{ $umkm->address }}</p>
-
-                    @if($umkm->description)
-                    <div x-data="{ expanded: false }" class="mt-3">
-                        <div x-show="expanded" x-collapse.min.80px class="text-slate-600 space-y-2">
-                            <p>{{ $umkm->description }}</p>
-                        </div>
-                        <p class="text-slate-600" x-show="!expanded">
-                            {{ Str::limit($umkm->description, 150) }}
-                        </p>
-                        @if(strlen($umkm->description) > 150)
-                        <button @click="expanded = !expanded" class="text-primary font-semibold text-sm mt-2 hover:underline">
-                            <span x-show="!expanded">Baca Selengkapnya</span>
-                            <span x-show="expanded" style="display: none;">Sembunyikan</span>
-                        </button>
-                        @endif
-                    </div>
-                    @endif
+                    <h1 class="font-serif text-4xl lg:text-5xl font-bold text-white">{{ $umkm->name }}</h1>
+                    <p class="text-blue-200 mt-2 text-base"><i class="fas fa-map-marker-alt fa-xs mr-1.5"></i>{{ $umkm->address }}</p>
                 </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 border-t pt-8 border-slate-200">
-                @if($umkm->businessType)
-                <div class="flex items-center gap-3 p-3 bg-off-white rounded-lg">
-                    <i class="fa-solid fa-tag fa-lg text-primary/70"></i>
-                    <div>
-                        <p class="text-xs text-slate-500">Jenis Usaha</p>
-                        <p class="font-semibold text-slate-800">{{ $umkm->businessType->name }}</p>
-                    </div>
-                </div>
-                @endif
-
-                @if($umkm->google_maps_link)
-                <a href="{{ $umkm->google_maps_link }}" target="_blank" class="flex items-center gap-3 p-3 bg-off-white rounded-lg hover:bg-slate-200 transition-colors">
-                    <i class="fa-solid fa-map-location-dot fa-lg text-primary/70"></i>
-                    <div>
-                        <p class="text-xs text-slate-500">Lokasi</p>
-                        <p class="font-semibold text-slate-800">Lihat di Google Maps</p>
-                    </div>
-                </a>
-                @endif
-
-                @if($umkm->halal_certified)
-                <div class="flex items-center gap-3 p-3 bg-off-white rounded-lg">
-                    <i class="fa-solid fa-check-circle fa-lg text-green-700/80"></i>
-                    <div>
-                        <p class="text-xs text-slate-500">Sertifikasi</p>
-                        <p class="font-semibold text-slate-800">Tersertifikasi Halal</p>
-                    </div>
-                </div>
-                @endif
             </div>
         </div>
     </header>
 
-    {{-- Daftar Produk --}}
-    <main class="py-16">
+    {{-- Detail Section (Description and Info) --}}
+    <section class="py-16 -mt-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                @if($umkm->description)
+                <div x-data="{ expanded: false }">
+                    <h2 class="font-serif text-2xl font-bold text-slate-800 mb-4">Tentang Kami</h2>
+                    <div x-show="expanded" x-collapse.min.100px class="prose max-w-none text-slate-600 space-y-3">
+                        <p>{{ $umkm->description }}</p>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed" x-show="!expanded">{{ Str::limit($umkm->description, 250) }}</p>
+                    @if(strlen($umkm->description) > 250)
+                    <button @click="expanded = !expanded" class="text-primary font-semibold text-sm mt-3 hover:underline">
+                        <span x-show="!expanded">Baca Selengkapnya <i class="fas fa-chevron-down fa-xs ml-1"></i></span>
+                        <span x-show="expanded" style="display: none;">Sembunyikan <i class="fas fa-chevron-up fa-xs ml-1"></i></span>
+                    </button>
+                    @endif
+                </div>
+                @endif
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 border-t pt-8 border-slate-200">
+                    @if($umkm->businessType)
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+                        <i class="fa-solid fa-tag text-2xl text-primary/70 w-8 text-center"></i>
+                        <div>
+                            <p class="text-xs text-slate-500">Jenis Usaha</p>
+                            <p class="font-semibold text-slate-800">{{ $umkm->businessType->name }}</p>
+                        </div>
+                    </div>
+                    @endif
+                    @if($umkm->Maps_link)
+                    <a href="{{ $umkm->Maps_link }}" target="_blank" class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-map-location-dot text-2xl text-primary/70 w-8 text-center"></i>
+                        <div>
+                            <p class="text-xs text-slate-500">Lokasi</p>
+                            <p class="font-semibold text-slate-800 hover:text-primary transition-colors">Lihat di Google Maps</p>
+                        </div>
+                    </a>
+                    @endif
+                    @if($umkm->halal_certified)
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+                        <i class="fa-solid fa-check-circle text-2xl text-green-600/80 w-8 text-center"></i>
+                        <div>
+                            <p class="text-xs text-slate-500">Sertifikasi</p>
+                            <p class="font-semibold text-slate-800">Tersertifikasi Halal</p>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Daftar Produk (Restyled Cards) --}}
+    <main class="pb-16">
         <div class="max-w-6xl mx-auto px-6">
-            <div class="mb-8">
+            <div class="mb-10 text-center">
                 <h2 class="font-serif text-3xl font-bold text-slate-800">Galeri Produk</h2>
                 <p class="text-slate-500 mt-1">Produk unggulan yang ditawarkan oleh {{ $umkm->name }}.</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @forelse($umkm->products as $product)
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-slate-300 group">
-                    @if($product->image)
-                    <div class="overflow-hidden">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                            class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                @forelse($umkm->products as $index => $product)
+                <div class="umkm-card card-hover bg-white rounded-xl shadow-lg overflow-hidden group animate-slide-up" style="animation-delay: {{ $index * 100 }}ms;">
+                    {{-- Card Image (Styled like theme) --}}
+                    <div class="aspect-[4/3] bg-gradient-to-br from-blue-400 to-blue-600 relative overflow-hidden">
+                        @if($product->image_url)
+                        <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                        @else
+                        <div class="w-full h-full flex items-center justify-center bg-slate-200">
+                            <i class="fas fa-image text-4xl text-slate-400"></i>
+                        </div>
+                        @endif
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-white">
+                                Rp {{ number_format($product->estimated_price, 0, ',', '.') }}
+                            </span>
+                        </div>
                     </div>
-                    @endif
+                    {{-- Card Content (Styled like theme) --}}
                     <div class="p-5">
-                        <h3 class="font-serif font-bold text-lg text-slate-800">{{ $product->name }}</h3>
-                        <p class="text-sm text-slate-500 mt-1 mb-3 h-10">{{ Str::limit($product->description, 55) }}</p>
-                        <p class="font-sans font-bold text-xl text-primary mb-4">
-                            Rp {{ number_format($product->estimated_price, 0, ',', '.') }}
+                        <h3 class="font-bold text-gray-900 text-lg mb-2 truncate group-hover:text-primary transition-colors">
+                            {{ $product->name }}
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed h-10">
+                            {{ $product->description ?? 'Deskripsi produk belum tersedia.' }}
                         </p>
-                        <a href="{{ route('guest.products.show', $product->id) }}"
-                            class="block w-full text-center bg-primary text-white px-4 py-2 rounded-md font-semibold hover:bg-darkBlue transition-colors">
-                            Lihat Detail
+                        <a href="{{ route('guest.products.show', $product->id) }}" class="block w-full text-center bg-secondary text-gray-900 py-3 rounded-lg font-semibold text-sm hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-md">
+                            <span class="flex items-center justify-center space-x-2">
+                                <i class="fas fa-eye text-xs"></i>
+                                <span>Lihat Detail</span>
+                                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform duration-200 text-xs"></i>
+                            </span>
                         </a>
                     </div>
                 </div>
                 @empty
-                <div class="col-span-full text-center py-12">
-                    <i class="fa-solid fa-box-open text-4xl text-slate-400"></i>
-                    <p class="mt-4 text-slate-500">Belum ada produk yang ditambahkan untuk UMKM ini.</p>
+                <div class="col-span-full text-center py-16 bg-slate-50 rounded-xl">
+                    <i class="fa-solid fa-box-open text-5xl text-slate-400"></i>
+                    <p class="mt-4 text-slate-600 font-semibold text-lg">Belum Ada Produk</p>
+                    <p class="text-slate-500">UMKM ini belum menambahkan produk ke dalam galeri.</p>
                 </div>
                 @endforelse
             </div>
-            <div class="mt-12 text-center">
-                <a href="{{ route('guest.umkm.index') }}" class="font-semibold text-primary hover:underline">
-                    ← Kembali ke Daftar Semua UMKM
+            <div class="mt-16 text-center">
+                <a href="{{ route('guest.umkm.index') }}" class="font-semibold text-primary hover:underline transition-all duration-300 group inline-flex items-center gap-2">
+                    <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                    <span>Kembali ke Daftar Semua UMKM</span>
                 </a>
             </div>
         </div>
     </main>
 
-    {{-- Footer --}}
-    <footer class="bg-slate-800 text-white py-16 lg:py-20">
+    {{-- Footer (Consistent) --}}
+    <footer class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                <div class="space-y-6">
                     <div class="flex items-center space-x-3">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo Kelurahan Dukuh Sutorejo" class="w-14 h-14 object-contain bg-white p-1 rounded-full">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo UMKM" class="w-10 h-10 object-contain" />
+                        </div>
                         <div>
-                            <h3 class="font-serif text-xl font-bold text-white">UMKM Dukuh Sutorejo</h3>
-                            <p class="text-slate-400 text-sm">Kota Surabaya, Jawa Timur</p>
+                            <h3 class="text-2xl font-bold">UMKM</h3>
+                            <p class="text-gray-400">Dukuh Sutorejo</p>
                         </div>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">
-                        Membangun ekonomi lokal melalui digitalisasi UMKM di Kelurahan Dukuh Sutorejo.
+                    <p class="text-gray-400 leading-relaxed">
+                        Website Resmi UMKM Kelurahan Dukuh Sutorejo. Membangun ekonomi lokal melalui digitalisasi UMKM.
                     </p>
                 </div>
-                <div class="space-y-4">
-                    <h3 class="font-serif text-xl font-bold text-white">Hubungi Kami</h3>
-                    <div class="space-y-3 text-slate-400">
-                        <p><i class="fas fa-map-marker-alt w-5 text-center mr-2 text-primary/70"></i> Jl. Lebansari, No. 1, Surabaya</p>
-                        <p><i class="fas fa-phone w-5 text-center mr-2 text-primary/70"></i> (031) 5961234</p>
-                        <p><i class="fas fa-envelope w-5 text-center mr-2 text-primary/70"></i> info@sutorejo.id</p>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <h3 class="font-serif text-xl font-bold text-white">Ikuti Kami</h3>
-                    <div class="flex space-x-3">
-                        <a href="#" class="w-12 h-12 flex items-center justify-center bg-slate-700 text-white rounded-lg hover:bg-primary transition-colors">
-                            <i class="fas fa-globe text-xl"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 flex items-center justify-center bg-slate-700 text-white rounded-lg hover:bg-primary transition-colors">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 flex items-center justify-center bg-slate-700 text-white rounded-lg hover:bg-primary transition-colors">
-                            <i class="fab fa-whatsapp text-xl"></i>
-                        </a>
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold">Hubungi Kami</h3>
+                    <div class="space-y-4 text-gray-400">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-secondary mt-1"></i>
+                            <p>Jl. Lebansari, No. 1, Dukuh Sutorejo, Mulyorejo, Surabaya, 60113</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-secondary"></i>
+                            <p>(031) 5961234</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-secondary"></i>
+                            <p>info@umkmdukuhsutorejo.store</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-slate-700 mt-12 pt-8 text-center text-slate-500 text-sm">
-                <p>&copy; {{ date('Y') }} Kelurahan Dukuh Sutorejo - KKN 47 UPNV Jatim 2025.</p>
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400 text-sm">
+                    © 2025 Copyright Pemerintahan Kelurahan Dukuh Sutorejo - Design By KKN 47 UPNVJT 2025
+                </p>
             </div>
         </div>
     </footer>
+
 </body>
 
 </html>

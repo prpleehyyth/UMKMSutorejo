@@ -468,7 +468,7 @@
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-envelope text-primary"></i>
-                            <p class="text-gray-400">info@umkmdukuhsutorejo.id</p>
+                            <p class="text-gray-400">info@umkmdukuhsutorejo.store</p>
                         </div>
                     </div>
 
@@ -481,10 +481,6 @@
                         <a href="https://www.instagram.com/kelurahan_dukuh_sutorejo/"
                             class="bg-gray-800 p-3 rounded-xl hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-110">
                             <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/6285117582505"
-                            class="bg-gray-800 p-3 rounded-xl hover:bg-green-500 transition-all duration-300 transform hover:scale-110">
-                            <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
                 </div>
