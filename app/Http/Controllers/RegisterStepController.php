@@ -59,7 +59,7 @@ class RegisterStepController extends Controller
             'name' => 'required|string|max:100',
             'nib' => ['nullable', 'digits:13'],
             'business_type_id' => 'required|exists:business_types,id',
-            'omzet' => ['required', 'numeric', 'min:1000'], // ← wajib angka & tidak boleh nol
+            'revenue' => ['required', 'numeric', 'min:1000'], // ← wajib angka & tidak boleh nol
             'halal_certified' => 'nullable|string|max:50',
             'address' => 'required|string',
             'google_maps_link' => 'nullable|string|url',
@@ -79,7 +79,7 @@ class RegisterStepController extends Controller
                 'name' => $data['name'],
                 'nib' => $data['nib'],
                 'business_type_id' => $data['business_type_id'],
-                'omzet' => $data['omzet'],
+                'revenue' => $data['revenue'],
                 'halal_certified' => $data['halal_certified'],
                 'address' => $data['address'],
                 'google_maps_link' => $data['google_maps_link'],

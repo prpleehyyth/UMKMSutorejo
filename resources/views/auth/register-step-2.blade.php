@@ -73,12 +73,12 @@
                         </div>
 
                         <div>
-                            <x-input-label for="omzet" value="Omzet (dalam Rupiah)" />
+                            <x-input-label for="revenue" value="Omzet (dalam Rupiah)" />
                             <div class="relative mt-1">
                                 <i class="fa-solid fa-coins absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                                <x-text-input id="omzet" name="omzet" type="number" placeholder="Contoh: 10000000" class="pl-10 w-full" :value="old('omzet')" required />
+                                <x-text-input id="revenue" name="revenue" type="number" placeholder="Contoh: 10000000" class="pl-10 w-full" :value="old('revenue')" required />
                             </div>
-                            <x-input-error :messages="$errors->get('omzet')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('revenue')" class="mt-2" />
                         </div>
 
 

@@ -149,18 +149,23 @@
                 @if($umkm->description)
                 <div x-data="{ expanded: false }">
                     <h2 class="font-serif text-2xl font-bold text-slate-800 mb-4">Tentang Kami</h2>
-                    <div x-show="expanded" x-collapse.min.100px class="prose max-w-none text-slate-600 space-y-3">
-                        <p>{{ $umkm->description }}</p>
+
+                    <div x-bind:class="expanded ? 'prose max-w-none text-slate-600 space-y-3' : 'text-slate-600 leading-relaxed'"
+                        x-cloak>
+                        <p x-text="expanded 
+                        ? '{{ str_replace(["\n", "\r"], ' ', e($umkm->description)) }}' 
+                        : '{{ str_replace(["\n", "\r"], ' ', e(Str::limit($umkm->description, 250))) }}'">
+                        </p>
                     </div>
-                    <p class="text-slate-600 leading-relaxed" x-show="!expanded">{{ Str::limit($umkm->description, 250) }}</p>
-                    @if(strlen($umkm->description) > 250)
-                    <button @click="expanded = !expanded" class="text-primary font-semibold text-sm mt-3 hover:underline">
-                        <span x-show="!expanded">Baca Selengkapnya <i class="fas fa-chevron-down fa-xs ml-1"></i></span>
-                        <span x-show="expanded" style="display: none;">Sembunyikan <i class="fas fa-chevron-up fa-xs ml-1"></i></span>
+
+                    <button
+                        @click="expanded = !expanded"
+                        class="mt-2 text-primary font-semibold hover:underline">
+                        <span x-text="expanded ? 'Tutup' : 'Baca Selengkapnya'"></span>
                     </button>
-                    @endif
                 </div>
                 @endif
+
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 border-t pt-8 border-slate-200">
                     @if($umkm->businessType)
@@ -172,8 +177,8 @@
                         </div>
                     </div>
                     @endif
-                    @if($umkm->Maps_link)
-                    <a href="{{ $umkm->Maps_link }}" target="_blank" class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
+                    @if($umkm->google_maps_link)
+                    <a href="{{ $umkm->google_maps_link }}" target="_blank" class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
                         <i class="fa-solid fa-map-location-dot text-2xl text-primary/70 w-8 text-center"></i>
                         <div>
                             <p class="text-xs text-slate-500">Lokasi</p>
@@ -259,10 +264,14 @@
     <footer class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-16 lg:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                <!-- Logo and Description -->
                 <div class="space-y-6">
                     <div class="flex items-center space-x-3">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
-                            <img src="{{ asset('images/logo.png') }}" alt="Logo UMKM" class="w-10 h-10 object-contain" />
+                        <!-- Logo tanpa background putih, hanya bulat -->
+                        <div
+                            class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center shadow-md">
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo UMKM"
+                                class="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold">UMKM</h3>
@@ -270,30 +279,67 @@
                         </div>
                     </div>
                     <p class="text-gray-400 leading-relaxed">
-                        Website Resmi UMKM Kelurahan Dukuh Sutorejo. Membangun ekonomi lokal melalui digitalisasi UMKM.
+                        Website Resmi UMKM Kelurahan Dukuh Sutorejo, Kecamatan Mulyorejo, Kota Surabaya, Provinsi
+                        Jawa Timur, Indonesia. Membangun ekonomi lokal melalui digitalisasi UMKM.
                     </p>
                 </div>
+
+                <!-- Contact Information -->
                 <div class="space-y-6">
                     <h3 class="text-2xl font-bold">Hubungi Kami</h3>
-                    <div class="space-y-4 text-gray-400">
+                    <div class="space-y-4">
                         <div class="flex items-start space-x-3">
-                            <i class="fas fa-map-marker-alt text-secondary mt-1"></i>
-                            <p>Jl. Lebansari, No. 1, Dukuh Sutorejo, Mulyorejo, Surabaya, 60113</p>
+                            <i class="fas fa-map-marker-alt text-primary mt-1"></i>
+                            <div class="text-gray-400">
+                                <p>Jl. Lebansari, No. 1, Kelurahan Dukuh Sutorejo,</p>
+                                <p>Kecamatan Mulyorejo, Kota Surabaya,</p>
+                                <p>Provinsi Jawa Timur Kode Pos 60113</p>
+                            </div>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-phone text-secondary"></i>
-                            <p>(031) 5961234</p>
+                            <i class="fas fa-phone text-primary"></i>
+                            <p class="text-gray-400">(031) 5961234</p>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-envelope text-secondary"></i>
-                            <p>info@umkmdukuhsutorejo.store</p>
+                            <i class="fas fa-envelope text-primary"></i>
+                            <p class="text-gray-400">info@umkmdukuhsutorejo.store</p>
                         </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="flex space-x-4">
+                        <a href="https://pemerintahan.surabaya.go.id/kelurahan_dukuh_sutorejo/"
+                            class="bg-gray-800 p-3 rounded-xl hover:bg-primary transition-all duration-300 transform hover:scale-110">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                        <a href="https://www.instagram.com/kelurahan_dukuh_sutorejo/"
+                            class="bg-gray-800 p-3 rounded-xl hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-110">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Maps Location -->
+            <div class="mb-12">
+                <h3 class="text-xl font-bold mb-6 text-center">Lokasi Kelurahan Dukuh Sutorejo</h3>
+                <div class="rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.432043567415!2d112.80078537428835!3d-7.416518273185834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fba4b9c11533%3A0x7e2616a7b3c7fcd!2sDukuh%20Sutorejo%2C%20Kec.%20Mulyorejo%2C%20Surabaya%2C%20Jawa%20Timur!5e0!3m2!1sen!2sid!4v1721810352734!5m2!1sen!2sid"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade" class="w-full">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Copyright -->
             <div class="border-t border-gray-700 pt-8 text-center">
-                <p class="text-gray-400 text-sm">
-                    © 2025 Copyright Pemerintahan Kelurahan Dukuh Sutorejo - Design By KKN 47 UPNVJT 2025
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    © 2025 Copyright Pemerintahan Kelurahan Dukuh Sutorejo - Design By Kelompok KKN 47 UPN Veteran
+                    Jawa Timur 2025
+                </p>
+                <p class="text-gray-500 text-xs mt-2">
+                    Dibuat dengan ❤️ untuk memajukan UMKM lokal
                 </p>
             </div>
         </div>
